@@ -5,32 +5,22 @@ import { CompetencyService } from '../../services/competencyService';
 import {
   TrainingService,
   PersonalizedRecommendationsResponse,
-  InterventionRecommendation,
   ProviderStatus,
 } from '../../services/trainingService';
 import {
-  BookOpen,
   ArrowRight,
   ArrowLeft,
   CheckCircle2,
   Clock,
   Sparkles,
-  HelpCircle,
   FileCheck2,
-  ChevronRight,
-  ShieldCheck,
-  Building,
-  GraduationCap,
-  Layers,
   AlertTriangle,
   Sliders,
-  Filter,
   ExternalLink,
   Target,
   Info,
   Check,
   XCircle,
-  RotateCcw,
 } from 'lucide-react';
 
 interface PersonalizedLearningPageProps {
@@ -73,7 +63,7 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
       const pStatuses = await TrainingService.getProviderStatuses();
       setProviders(pStatuses);
 
-      const constraints: any = {};
+      const constraints: Record<string, unknown> = {};
       if (maxDuration) constraints.max_duration_hours = maxDuration;
       if (selectedProvider !== 'all') constraints.provider_filter = [selectedProvider];
       if (selectedDelivery !== 'all') constraints.preferred_delivery_modes = [selectedDelivery];
@@ -89,6 +79,7 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
   useEffect(() => {
     fetchRecommendations();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [maxDuration, selectedProvider, selectedDelivery]);
 
   const handleEnroll = async (resourceId: string) => {
@@ -96,8 +87,9 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
     try {
       const res = await TrainingService.enroll(resourceId);
       setEnrollmentMsg({ id: resourceId, text: res.message });
-    } catch (err: any) {
-      setEnrollmentMsg({ id: resourceId, text: err.message || 'Enrollment failed.' });
+    } catch (err: unknown) {
+      const msg = err instanceof Error ? err.message : 'Enrollment failed.';
+      setEnrollmentMsg({ id: resourceId, text: msg });
     } finally {
       setEnrollingId(null);
     }
@@ -105,7 +97,6 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
   const steps = REGRESSION_MICROLEARNING_STEPS;
   const currentStep = steps[currentStepIdx];
-  const progressRatio = `${Math.min(steps.length, completedSteps.length)} / ${steps.length} completed`;
 
   const handleNext = () => {
     if (!completedSteps.includes(currentStepIdx + 1) && currentStepIdx + 1 < steps.length) {
@@ -134,32 +125,32 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6 pb-12 animate-fadeIn">
       {/* Header Banner */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
+      <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 shadow-xs flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-900 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-md">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6B4A35] bg-[#EEE4D8] border border-[#CBB9A7] px-2.5 py-0.5 rounded-md">
               Targeted Training Interventions
             </span>
-            <span className="text-xs text-slate-500 font-mono">Phase 7 Integration Layer</span>
+            <span className="text-xs text-[#6E625A] font-mono">Phase 7 Integration Layer</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
-            Personalized Training Interventions & Curriculum Optimization
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2F2520] tracking-tight">
+            Personalized Training Interventions &amp; Curriculum Optimization
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-[#6E625A] mt-1">
             Connecting verified competency gaps and task-readiness bottlenecks to explainable interventions from iGOT, NSSTA, and TPAC.
           </p>
         </div>
 
         {/* View Switcher Tabs */}
-        <div className="flex items-center gap-1 bg-slate-100 p-1.5 rounded-xl border border-slate-200 self-start md:self-auto">
+        <div className="flex items-center gap-1 bg-[#EEE4D8] p-1.5 rounded-xl border border-[#DED2C5] self-start md:self-auto">
           <button
             onClick={() => setActiveTab('optimizer')}
             className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'optimizer'
-                ? 'bg-blue-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#6B4A35] text-[#FBF8F2] shadow-xs'
+                : 'text-[#6E625A] hover:text-[#2F2520]'
             }`}
           >
             Intervention Optimizer
@@ -168,8 +159,8 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
             onClick={() => setActiveTab('microlearning')}
             className={`px-3.5 py-2 rounded-lg text-xs font-bold transition-all cursor-pointer ${
               activeTab === 'microlearning'
-                ? 'bg-blue-900 text-white shadow-xs'
-                : 'text-slate-600 hover:text-slate-900'
+                ? 'bg-[#6B4A35] text-[#FBF8F2] shadow-xs'
+                : 'text-[#6E625A] hover:text-[#2F2520]'
             }`}
           >
             15-min Micro-Pathway
@@ -182,34 +173,34 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
         {providers.map((p) => {
           const isMock = p.mode === 'mock';
           const isConfigured = p.is_configured;
-          let badgeColor = 'bg-amber-50 text-amber-900 border-amber-300';
+          let badgeColor = 'bg-[#FDF6EC] text-[#7A4F1E] border-[#D4A96A]';
           let badgeLabel = 'MOCK / DEMO';
 
           if (!isMock && isConfigured) {
-            badgeColor = 'bg-emerald-50 text-emerald-900 border-emerald-300';
+            badgeColor = 'bg-[#EFF6EF] text-[#2E5B34] border-[#A8C9AC]';
             badgeLabel = 'CONFIGURED (LIVE)';
           } else if (!isMock && !isConfigured) {
-            badgeColor = 'bg-rose-50 text-rose-900 border-rose-300';
+            badgeColor = 'bg-[#FBF0EF] text-[#7A2E2A] border-[#D4958F]';
             badgeLabel = 'NOT CONFIGURED';
           } else if (p.provider === 'tpac') {
-            badgeColor = 'bg-blue-50 text-blue-900 border-blue-300';
+            badgeColor = 'bg-[#EEE4D8] text-[#6B4A35] border-[#CBB9A7]';
             badgeLabel = 'APPROVED CATALOGUE';
           }
 
           return (
             <div
               key={p.provider}
-              className="bg-white rounded-xl border border-slate-200 p-3.5 flex items-center justify-between shadow-2xs"
+              className="bg-[#FFFDFC] rounded-xl border border-[#DED2C5] p-3.5 flex items-center justify-between shadow-2xs"
             >
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-lg bg-slate-100 flex items-center justify-center font-bold text-xs text-slate-700 uppercase">
+                <div className="w-8 h-8 rounded-lg bg-[#F8F3EB] border border-[#DED2C5] flex items-center justify-center font-bold text-xs text-[#3A2921] uppercase">
                   {p.provider}
                 </div>
                 <div>
-                  <div className="text-xs font-bold text-slate-900 truncate max-w-[140px]">
+                  <div className="text-xs font-bold text-[#2F2520] truncate max-w-[140px]">
                     {p.name}
                   </div>
-                  <div className="text-[10px] text-slate-400 capitalize">{p.mode} Mode</div>
+                  <div className="text-[10px] text-[#6E625A] capitalize">{p.mode} Mode</div>
                 </div>
               </div>
               <span className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${badgeColor}`}>
@@ -223,57 +214,57 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
       {activeTab === 'optimizer' ? (
         /* ── INTERVENTION OPTIMIZER VIEW ───────────────────────────── */
         <div className="space-y-6">
-          {/* Priority Context Card (Gap + Task Bottleneck) */}
+          {/* Priority Context Card */}
           {recData && (
-            <div className="bg-gradient-to-br from-slate-900 via-blue-950 to-slate-900 text-white rounded-2xl p-6 shadow-md border border-slate-800 space-y-4">
-              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-800">
+            <div className="bg-gradient-to-br from-[#2A1E19] via-[#3A2921] to-[#2A1E19] text-[#FBF8F2] rounded-2xl p-6 shadow-md border border-[#4D3628] space-y-4">
+              <div className="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-[#4D3628]">
                 <div className="flex items-center gap-2">
-                  <span className="text-[11px] font-bold uppercase tracking-wider bg-blue-600 text-white px-2.5 py-0.5 rounded">
+                  <span className="text-[11px] font-bold uppercase tracking-wider bg-[#6B4A35] text-[#FBF8F2] px-2.5 py-0.5 rounded border border-[#8A6A52]">
                     Officer Competency Context
                   </span>
-                  <span className="text-xs text-slate-400 font-mono">
+                  <span className="text-xs text-[#CBB9A7] font-mono">
                     ID: {recData.officer_igot_id} ({recData.cadre})
                   </span>
                 </div>
-                <div className="text-[11px] text-slate-400">
-                  Targeted Interventions Evaluated: <strong className="text-white">{recData.total_candidates_evaluated}</strong>
+                <div className="text-[11px] text-[#CBB9A7]">
+                  Targeted Interventions Evaluated: <strong className="text-[#FBF8F2]">{recData.total_candidates_evaluated}</strong>
                 </div>
               </div>
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {/* Priority Gap */}
-                <div className="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-rose-400 flex items-center gap-1.5">
-                    <AlertTriangle className="w-4 h-4" />
+                <div className="p-4 rounded-xl bg-[#2A1E19]/70 border border-[#4D3628] space-y-1.5">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[#FBF0EF] flex items-center gap-1.5">
+                    <AlertTriangle className="w-4 h-4 text-[#D4958F]" />
                     Priority Competency Gap
                   </div>
-                  <div className="text-lg font-black text-white">
+                  <div className="text-lg font-black text-[#FBF8F2]">
                     {recData.priority_gap_competency_name || 'Sampling Design & Audit'}
                   </div>
-                  <div className="text-xs text-slate-300">
+                  <div className="text-xs text-[#DED2C5]">
                     Severity Band:{' '}
-                    <span className="font-bold text-rose-300 uppercase">
+                    <span className="font-bold text-[#F3E9D8] uppercase">
                       {recData.priority_gap_severity || 'Moderate Gap'}
                     </span>{' '}
                     &bull; Observed Gap:{' '}
-                    <span className="font-mono text-white">
+                    <span className="font-mono text-[#FBF8F2]">
                       {recData.priority_gap_value ? `${(recData.priority_gap_value * 100).toFixed(0)}%` : '35%'}
                     </span>
                   </div>
                 </div>
 
                 {/* Task Readiness Bottleneck */}
-                <div className="p-4 rounded-xl bg-slate-800/60 border border-slate-700/60 space-y-1.5">
-                  <div className="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
-                    <Target className="w-4 h-4" />
+                <div className="p-4 rounded-xl bg-[#2A1E19]/70 border border-[#4D3628] space-y-1.5">
+                  <div className="text-xs font-bold uppercase tracking-wider text-[#EDD8B4] flex items-center gap-1.5">
+                    <Target className="w-4 h-4 text-[#A97838]" />
                     Task Readiness Bottleneck
                   </div>
-                  <div className="text-lg font-black text-white">
+                  <div className="text-lg font-black text-[#FBF8F2]">
                     {recData.active_bottleneck_task_title || 'Produce Survey Estimate (MoSPI Operational Role)'}
                   </div>
-                  <div className="text-xs text-slate-300">
+                  <div className="text-xs text-[#DED2C5]">
                     Limiting Factor:{' '}
-                    <span className="text-amber-200 font-medium">
+                    <span className="text-[#EDD8B4] font-medium">
                       Current readiness for this task is bounded by the {recData.priority_gap_competency_name} gap.
                     </span>
                   </div>
@@ -283,10 +274,10 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
           )}
 
           {/* Constraint Filters Control Bar */}
-          <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-2xs space-y-3">
-            <div className="flex items-center gap-2 pb-2 border-b border-slate-100">
-              <Sliders className="w-4 h-4 text-blue-900" />
-              <h3 className="text-xs font-bold text-slate-900 uppercase tracking-wide">
+          <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-5 shadow-2xs space-y-3">
+            <div className="flex items-center gap-2 pb-2 border-b border-[#EEE4D8]">
+              <Sliders className="w-4 h-4 text-[#6B4A35]" />
+              <h3 className="text-xs font-bold text-[#2F2520] uppercase tracking-wide">
                 Configurable Optimization Constraints
               </h3>
             </div>
@@ -294,7 +285,7 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 text-xs">
               {/* Duration Limit */}
               <div>
-                <label className="block text-slate-600 font-bold mb-1.5">
+                <label className="block text-[#6E625A] font-bold mb-1.5">
                   Max Training Duration
                 </label>
                 <select
@@ -302,7 +293,7 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                   onChange={(e) =>
                     setMaxDuration(e.target.value === 'all' ? undefined : Number(e.target.value))
                   }
-                  className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 font-medium text-slate-800 focus:ring-2 focus:ring-blue-900"
+                  className="w-full bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg p-2 font-medium text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                 >
                   <option value="all">Any Duration (No limit)</option>
                   <option value="10">≤ 10 Hours (Microlearning)</option>
@@ -313,13 +304,13 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
               {/* Provider Filter */}
               <div>
-                <label className="block text-slate-600 font-bold mb-1.5">
+                <label className="block text-[#6E625A] font-bold mb-1.5">
                   Provider Filter
                 </label>
                 <select
                   value={selectedProvider}
                   onChange={(e) => setSelectedProvider(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 font-medium text-slate-800 focus:ring-2 focus:ring-blue-900"
+                  className="w-full bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg p-2 font-medium text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                 >
                   <option value="all">All Providers (iGOT + NSSTA + TPAC)</option>
                   <option value="igot">iGOT Karmayogi (LMS)</option>
@@ -330,13 +321,13 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
               {/* Delivery Mode */}
               <div>
-                <label className="block text-slate-600 font-bold mb-1.5">
+                <label className="block text-[#6E625A] font-bold mb-1.5">
                   Delivery Mode
                 </label>
                 <select
                   value={selectedDelivery}
                   onChange={(e) => setSelectedDelivery(e.target.value)}
-                  className="w-full bg-slate-50 border border-slate-300 rounded-lg p-2 font-medium text-slate-800 focus:ring-2 focus:ring-blue-900"
+                  className="w-full bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg p-2 font-medium text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                 >
                   <option value="all">All Delivery Modes</option>
                   <option value="online_self_paced">Online Self-Paced</option>
@@ -351,11 +342,11 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
           {/* Recommended Interventions List */}
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <h2 className="text-lg font-bold text-slate-900 flex items-center gap-2">
-                <Sparkles className="w-5 h-5 text-blue-900" />
+              <h2 className="text-lg font-bold text-[#2F2520] flex items-center gap-2">
+                <Sparkles className="w-5 h-5 text-[#6B4A35]" />
                 <span>Optimized Training Interventions</span>
                 {recData && (
-                  <span className="text-xs font-mono font-normal text-slate-500">
+                  <span className="text-xs font-mono font-normal text-[#6E625A]">
                     ({recData.recommendations.length} recommended)
                   </span>
                 )}
@@ -363,16 +354,16 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
             </div>
 
             {loading ? (
-              <div className="p-12 text-center text-slate-500 text-sm bg-white rounded-2xl border border-slate-200">
+              <div className="p-12 text-center text-[#6E625A] text-sm bg-[#FFFDFC] rounded-2xl border border-[#DED2C5]">
                 Running Deterministic Training Intervention Optimizer...
               </div>
             ) : !recData || recData.recommendations.length === 0 ? (
-              <div className="p-8 text-center bg-white rounded-2xl border border-slate-200 text-slate-500 text-sm">
+              <div className="p-8 text-center bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] text-[#6E625A] text-sm">
                 No matching programmes found for the selected constraints. Try relaxing the duration or delivery mode filters.
               </div>
             ) : (
               <div className="space-y-4">
-                {recData.recommendations.map((rec, idx) => {
+                {recData.recommendations.map((rec) => {
                   const res = rec.resource;
                   const isExpanded = expandedReasonId === res.id;
                   const isIgot = res.provider === 'igot';
@@ -381,24 +372,24 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
                   let providerBadge = {
                     name: 'iGOT Karmayogi',
-                    bg: 'bg-blue-50 text-blue-900 border-blue-200',
+                    bg: 'bg-[#EEE4D8] text-[#6B4A35] border-[#CBB9A7]',
                   };
                   if (isNssta) {
                     providerBadge = {
                       name: 'NSSTA Academy',
-                      bg: 'bg-emerald-50 text-emerald-900 border-emerald-200',
+                      bg: 'bg-[#EFF6EF] text-[#2E5B34] border-[#A8C9AC]',
                     };
                   } else if (isTpac) {
                     providerBadge = {
                       name: 'TPAC Approved',
-                      bg: 'bg-purple-50 text-purple-900 border-purple-200',
+                      bg: 'bg-[#FDF6EC] text-[#7A4F1E] border-[#D4A96A]',
                     };
                   }
 
                   return (
                     <div
                       key={res.id}
-                      className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs hover:border-blue-300 transition-all space-y-4"
+                      className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 shadow-xs hover:border-[#8A6A52] transition-all space-y-4"
                     >
                       {/* Top Meta Line */}
                       <div className="flex flex-wrap items-center justify-between gap-2">
@@ -408,20 +399,20 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                           >
                             {providerBadge.name}
                           </span>
-                          <span className="text-xs font-mono text-slate-400">{res.external_reference_id}</span>
+                          <span className="text-xs font-mono text-[#93877D]">{res.external_reference_id}</span>
                           {res.is_mock && (
-                            <span className="text-[10px] font-black bg-amber-100 text-amber-900 px-1.5 py-0.2 rounded">
+                            <span className="text-[10px] font-black bg-[#FDF6EC] text-[#7A4F1E] border border-[#D4A96A] px-1.5 py-0.2 rounded">
                               DEMO / MOCK
                             </span>
                           )}
                         </div>
 
                         {/* Optimizer Fit Score */}
-                        <div className="flex items-center gap-2 bg-blue-50/70 border border-blue-200 px-3 py-1 rounded-xl">
-                          <span className="text-[11px] font-bold text-blue-950 uppercase tracking-wider">
+                        <div className="flex items-center gap-2 bg-[#EEE4D8] border border-[#CBB9A7] px-3 py-1 rounded-xl">
+                          <span className="text-[11px] font-bold text-[#3A2921] uppercase tracking-wider">
                             Fit Score:
                           </span>
-                          <span className="text-sm font-black font-mono text-blue-900">
+                          <span className="text-sm font-black font-mono text-[#6B4A35]">
                             {(rec.score * 100).toFixed(0)}%
                           </span>
                         </div>
@@ -429,51 +420,51 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
                       {/* Title & Description */}
                       <div>
-                        <h3 className="text-lg font-bold text-slate-900">{res.title}</h3>
-                        <p className="text-xs text-slate-600 mt-1 leading-relaxed">{res.description}</p>
+                        <h3 className="text-lg font-bold text-[#2F2520]">{res.title}</h3>
+                        <p className="text-xs text-[#6E625A] mt-1 leading-relaxed">{res.description}</p>
                       </div>
 
                       {/* Attributes Strip */}
-                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-slate-100 text-xs">
-                        <div className="p-2.5 bg-slate-50 rounded-xl">
-                          <span className="text-[10px] text-slate-400 uppercase font-bold block">
+                      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 pt-2 border-t border-[#EEE4D8] text-xs">
+                        <div className="p-2.5 bg-[#F8F3EB] border border-[#DED2C5] rounded-xl">
+                          <span className="text-[10px] text-[#93877D] uppercase font-bold block">
                             Duration
                           </span>
-                          <span className="font-bold font-mono text-slate-800 flex items-center gap-1 mt-0.5">
-                            <Clock className="w-3.5 h-3.5 text-blue-700" />
+                          <span className="font-bold font-mono text-[#2F2520] flex items-center gap-1 mt-0.5">
+                            <Clock className="w-3.5 h-3.5 text-[#6B4A35]" />
                             {res.duration_hours} Hours
                           </span>
                         </div>
 
-                        <div className="p-2.5 bg-slate-50 rounded-xl">
-                          <span className="text-[10px] text-slate-400 uppercase font-bold block">
+                        <div className="p-2.5 bg-[#F8F3EB] border border-[#DED2C5] rounded-xl">
+                          <span className="text-[10px] text-[#93877D] uppercase font-bold block">
                             Delivery Mode
                           </span>
-                          <span className="font-bold text-slate-800 capitalize mt-0.5 block truncate">
+                          <span className="font-bold text-[#2F2520] capitalize mt-0.5 block truncate">
                             {res.delivery_mode.replace(/_/g, ' ')}
                           </span>
                         </div>
 
-                        <div className="p-2.5 bg-slate-50 rounded-xl">
-                          <span className="text-[10px] text-slate-400 uppercase font-bold block">
+                        <div className="p-2.5 bg-[#F8F3EB] border border-[#DED2C5] rounded-xl">
+                          <span className="text-[10px] text-[#93877D] uppercase font-bold block">
                             Target Cadre
                           </span>
-                          <span className="font-bold text-slate-800 mt-0.5 block truncate">
+                          <span className="font-bold text-[#2F2520] mt-0.5 block truncate">
                             {res.target_cadre.join(', ') || 'All Cadres'}
                           </span>
                         </div>
 
-                        <div className="p-2.5 bg-slate-50 rounded-xl">
-                          <span className="text-[10px] text-slate-400 uppercase font-bold block">
+                        <div className="p-2.5 bg-[#F8F3EB] border border-[#DED2C5] rounded-xl">
+                          <span className="text-[10px] text-[#93877D] uppercase font-bold block">
                             Prerequisites
                           </span>
-                          <span className="font-bold text-slate-800 mt-0.5 block truncate">
+                          <span className="font-bold text-[#2F2520] mt-0.5 block truncate">
                             {rec.satisfies_prerequisites ? (
-                              <span className="text-emerald-700 flex items-center gap-1">
+                              <span className="text-[#2E5B34] flex items-center gap-1">
                                 <CheckCircle2 className="w-3.5 h-3.5" /> Satisfied
                               </span>
                             ) : (
-                              <span className="text-rose-600 flex items-center gap-1">
+                              <span className="text-[#7A2E2A] flex items-center gap-1">
                                 <AlertTriangle className="w-3.5 h-3.5" /> Pending
                               </span>
                             )}
@@ -482,24 +473,24 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                       </div>
 
                       {/* Why Recommended Explainable Accordion */}
-                      <div className="p-4 rounded-xl bg-blue-50/60 border border-blue-200/80 space-y-2.5">
+                      <div className="p-4 rounded-xl bg-[#F8F3EB] border border-[#DED2C5] space-y-2.5">
                         <div className="flex items-center justify-between">
-                          <div className="text-xs font-bold text-blue-950 flex items-center gap-1.5 uppercase tracking-wider">
-                            <Info className="w-4 h-4 text-blue-800" />
+                          <div className="text-xs font-bold text-[#2F2520] flex items-center gap-1.5 uppercase tracking-wider">
+                            <Info className="w-4 h-4 text-[#6B4A35]" />
                             Why Recommended for This Officer:
                           </div>
                           <button
                             onClick={() => setExpandedReasonId(isExpanded ? null : res.id)}
-                            className="text-[11px] text-blue-800 font-bold hover:underline cursor-pointer"
+                            className="text-[11px] text-[#6B4A35] font-bold hover:underline cursor-pointer"
                           >
                             {isExpanded ? 'Hide Factor Breakdown' : 'View Scoring Breakdown'}
                           </button>
                         </div>
 
-                        <ul className="space-y-1 text-xs text-blue-900 font-medium">
+                        <ul className="space-y-1 text-xs text-[#3A2921] font-medium">
                           {rec.reasons.map((r, rIdx) => (
                             <li key={rIdx} className="flex items-start gap-2">
-                              <span className="text-blue-600 font-bold mt-0.5">&bull;</span>
+                              <span className="text-[#6B4A35] font-bold mt-0.5">&bull;</span>
                               <span>{r}</span>
                             </li>
                           ))}
@@ -507,15 +498,15 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
                         {/* Detailed Factor Breakdown if expanded */}
                         {isExpanded && (
-                          <div className="pt-3 border-t border-blue-200 grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
+                          <div className="pt-3 border-t border-[#DED2C5] grid grid-cols-2 sm:grid-cols-4 gap-2 text-[11px]">
                             {Object.entries(rec.factor_breakdown).map(([k, val]) => {
                               const v = val as import('../../services/trainingService').FactorScoreDetail;
                               return (
-                                <div key={k} className="bg-white p-2 rounded-lg border border-blue-200/60">
-                                  <div className="text-[10px] text-slate-500 capitalize truncate">
+                                <div key={k} className="bg-[#FFFDFC] p-2 rounded-lg border border-[#DED2C5]">
+                                  <div className="text-[10px] text-[#6E625A] capitalize truncate">
                                     {k.replace(/_/g, ' ')}
                                   </div>
-                                  <div className="font-mono font-bold text-blue-950 mt-0.5">
+                                  <div className="font-mono font-bold text-[#2F2520] mt-0.5">
                                     {v && typeof v.raw_score === 'number' ? `${(v.raw_score * 100).toFixed(0)}%` : '0%'} (w: {v?.weight ?? 0})
                                   </div>
                                 </div>
@@ -527,13 +518,13 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
                       {/* Syllabus / Highlights */}
                       {res.syllabus_highlights.length > 0 && (
-                        <div className="text-xs text-slate-600 space-y-1">
-                          <span className="font-bold text-slate-700 block">Syllabus Modules:</span>
+                        <div className="text-xs text-[#6E625A] space-y-1">
+                          <span className="font-bold text-[#2F2520] block">Syllabus Modules:</span>
                           <div className="flex flex-wrap gap-1.5">
                             {res.syllabus_highlights.map((s, sIdx) => (
                               <span
                                 key={sIdx}
-                                className="bg-slate-100 text-slate-700 px-2 py-0.5 rounded text-[11px] font-medium"
+                                className="bg-[#F8F3EB] border border-[#DED2C5] text-[#3A2921] px-2 py-0.5 rounded text-[11px] font-medium"
                               >
                                 {s}
                               </span>
@@ -543,10 +534,10 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                       )}
 
                       {/* Bottom Action Bar */}
-                      <div className="pt-3 border-t border-slate-100 flex flex-wrap items-center justify-between gap-3">
-                        <div className="text-xs text-slate-500 font-mono">
+                      <div className="pt-3 border-t border-[#EEE4D8] flex flex-wrap items-center justify-between gap-3">
+                        <div className="text-xs text-[#6E625A] font-mono">
                           {enrollmentMsg && enrollmentMsg.id === res.id ? (
-                            <span className="text-emerald-700 font-bold flex items-center gap-1">
+                            <span className="text-[#2E5B34] font-bold flex items-center gap-1">
                               <CheckCircle2 className="w-3.5 h-3.5" /> {enrollmentMsg.text}
                             </span>
                           ) : (
@@ -558,18 +549,18 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                           {isIgot && (
                             <button
                               onClick={() => onNavigate('igot-integration')}
-                              className="px-3.5 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold border border-slate-300 transition-all cursor-pointer flex items-center gap-1.5"
+                              className="px-3.5 py-2 rounded-xl bg-[#EEE4D8] hover:bg-[#DED2C5] text-[#3A2921] text-xs font-semibold border border-[#CBB9A7] transition-all cursor-pointer flex items-center gap-1.5"
                             >
-                              <ExternalLink className="w-3.5 h-3.5" />
+                              <ExternalLink className="w-3.5 h-3.5 text-[#6B4A35]" />
                               <span>iGOT LMS Hub</span>
                             </button>
                           )}
                           <button
                             onClick={() => handleEnroll(res.id)}
                             disabled={enrollingId === res.id}
-                            className="px-4 py-2 rounded-xl bg-blue-900 hover:bg-blue-800 active:scale-98 text-white text-xs font-bold shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
+                            className="px-4 py-2 rounded-xl bg-[#6B4A35] hover:bg-[#523625] active:scale-98 text-[#FBF8F2] text-xs font-bold shadow-xs transition-all cursor-pointer flex items-center gap-1.5"
                           >
-                            <Check className="w-3.5 h-3.5 text-amber-300" />
+                            <Check className="w-3.5 h-3.5 text-[#EDD8B4]" />
                             <span>
                               {enrollingId === res.id ? 'Processing...' : 'Enroll / Assign Pathway'}
                             </span>
@@ -585,36 +576,36 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
           {/* Deterministic Exclusions Section */}
           {recData && recData.excluded_interventions.length > 0 && (
-            <div className="bg-white rounded-2xl border border-slate-200 p-5 shadow-2xs space-y-3">
+            <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-5 shadow-2xs space-y-3">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
-                  <XCircle className="w-4 h-4 text-slate-400" />
-                  <h3 className="text-xs font-bold text-slate-700 uppercase tracking-wide">
+                  <XCircle className="w-4 h-4 text-[#93877D]" />
+                  <h3 className="text-xs font-bold text-[#2F2520] uppercase tracking-wide">
                     Excluded Catalog Programmes ({recData.excluded_interventions.length})
                   </h3>
                 </div>
                 <button
                   onClick={() => setShowExclusions(!showExclusions)}
-                  className="text-xs font-bold text-blue-900 hover:underline cursor-pointer"
+                  className="text-xs font-bold text-[#6B4A35] hover:underline cursor-pointer"
                 >
                   {showExclusions ? 'Hide Excluded' : 'View Excluded Programmes'}
                 </button>
               </div>
 
               {showExclusions && (
-                <div className="space-y-2 pt-2 border-t border-slate-100 text-xs">
+                <div className="space-y-2 pt-2 border-t border-[#EEE4D8] text-xs">
                   {recData.excluded_interventions.map((ex, exIdx) => (
                     <div
                       key={exIdx}
-                      className="p-3 bg-slate-50 rounded-xl border border-slate-200 flex flex-col sm:flex-row sm:items-center justify-between gap-2"
+                      className="p-3 bg-[#F8F3EB] rounded-xl border border-[#DED2C5] flex flex-col sm:flex-row sm:items-center justify-between gap-2"
                     >
                       <div>
-                        <span className="font-bold text-slate-800">{ex.title}</span>
-                        <span className="text-[10px] font-mono text-slate-400 ml-2 uppercase">
+                        <span className="font-bold text-[#2F2520]">{ex.title}</span>
+                        <span className="text-[10px] font-mono text-[#6E625A] ml-2 uppercase">
                           [{ex.provider}]
                         </span>
                       </div>
-                      <span className="text-rose-700 font-medium text-[11px]">
+                      <span className="text-[#7A2E2A] font-medium text-[11px]">
                         {ex.exclusion_reason}
                       </span>
                     </div>
@@ -625,54 +616,54 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
           )}
 
           {/* Scientific Disclaimer */}
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-500 flex items-start gap-2">
-            <Info className="w-4 h-4 text-slate-400 shrink-0 mt-0.5" />
+          <div className="p-4 rounded-xl bg-[#F8F3EB] border border-[#DED2C5] text-xs text-[#6E625A] flex items-start gap-2">
+            <Info className="w-4 h-4 text-[#6B4A35] shrink-0 mt-0.5" />
             <span>
-              <strong>Scientific & Administrative Integrity Note:</strong> Training intervention recommendations are deterministically scored based on verified competency gaps, sub-skill alignment, operational task bottlenecks, prerequisite fit, and configured duration constraints. The platform does NOT fabricate unsupported outcome claims (such as "+25% productivity").
+              <strong>Scientific &amp; Administrative Integrity Note:</strong> Training intervention recommendations are deterministically scored based on verified competency gaps, sub-skill alignment, operational task bottlenecks, prerequisite fit, and configured duration constraints.
             </span>
           </div>
         </div>
       ) : (
-        /* ── GUIDED MICRO-LEARNING PATHWAY (Existing Walkthrough) ──── */
+        /* ── GUIDED MICRO-LEARNING PATHWAY ──── */
         <div className="space-y-6">
-          {/* Completion Modal / Banner if completed */}
+          {/* Completion Modal / Banner */}
           {isCompleted ? (
-            <div className="bg-gradient-to-br from-emerald-50 to-emerald-100 rounded-2xl border-2 border-emerald-400 p-8 text-center shadow-lg animate-fadeIn">
-              <div className="w-16 h-16 rounded-full bg-emerald-600 text-white flex items-center justify-center mx-auto mb-4 shadow-md">
+            <div className="bg-[#EFF6EF] rounded-2xl border-2 border-[#A8C9AC] p-8 text-center shadow-xs animate-fadeIn">
+              <div className="w-16 h-16 rounded-full bg-[#547A5A] text-[#FFFDFC] flex items-center justify-center mx-auto mb-4 shadow-sm">
                 <CheckCircle2 className="w-10 h-10" />
               </div>
 
-              <span className="text-xs font-bold uppercase tracking-wider text-emerald-800 bg-emerald-200/60 px-3 py-1 rounded-full">
+              <span className="text-xs font-bold uppercase tracking-wider text-[#2E5B34] bg-[#C8DEC8] px-3 py-1 rounded-full border border-[#A8C9AC]">
                 Micro-Pathway Complete
               </span>
-              <h2 className="text-2xl sm:text-3xl font-black text-emerald-950 mt-2">
+              <h2 className="text-2xl sm:text-3xl font-black text-[#1F5E2A] mt-2">
                 Learning Completed ✓
               </h2>
-              <p className="text-sm text-emerald-900 max-w-lg mx-auto mt-2 leading-relaxed">
+              <p className="text-sm text-[#2E5B34] max-w-lg mx-auto mt-2 leading-relaxed">
                 You have mastered the distinction between absolute marginal change (dy/dx) and percentage elasticities in linear vs log models. Course completion alone does not prove competency — proceed to verification!
               </p>
 
               <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-3">
                 <button
                   onClick={() => onNavigate('assessments')}
-                  className="px-6 py-3 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-sm shadow-md transition-all flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-3 rounded-xl bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] font-bold text-sm shadow-xs transition-all flex items-center gap-2 cursor-pointer"
                 >
-                  <FileCheck2 className="w-4 h-4 text-amber-300" />
+                  <FileCheck2 className="w-4 h-4 text-[#F3E9D8]" />
                   <span>Take Verification Assessment</span>
                   <ArrowRight className="w-4 h-4" />
                 </button>
                 <button
                   onClick={() => onNavigate('verification')}
-                  className="px-5 py-3 rounded-xl bg-white hover:bg-slate-50 text-slate-800 font-semibold text-sm border border-slate-300 shadow-xs cursor-pointer"
+                  className="px-5 py-3 rounded-xl bg-[#FFFDFC] hover:bg-[#F8F3EB] text-[#2F2520] font-semibold text-sm border border-[#DED2C5] shadow-xs cursor-pointer"
                 >
                   View Verification Timeline
                 </button>
               </div>
             </div>
           ) : (
-            <div className="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] shadow-xs overflow-hidden">
               {/* Progress Bar & Steps Nav */}
-              <div className="border-b border-slate-200 bg-slate-50/70 p-4">
+              <div className="border-b border-[#DED2C5] bg-[#F8F3EB] p-4">
                 <div className="grid grid-cols-4 gap-2">
                   {steps.map((s, idx) => {
                     const isActive = currentStepIdx === idx;
@@ -683,14 +674,14 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                         onClick={() => setCurrentStepIdx(idx)}
                         className={`p-2.5 rounded-xl text-left border transition-all cursor-pointer ${
                           isActive
-                            ? 'bg-blue-900 text-white border-blue-900 shadow-xs'
+                            ? 'bg-[#6B4A35] text-[#FBF8F2] border-[#6B4A35] shadow-xs'
                             : isStepCompleted
-                            ? 'bg-emerald-50 text-emerald-900 border-emerald-200'
-                            : 'bg-white text-slate-600 border-slate-200 hover:bg-slate-100'
+                            ? 'bg-[#EFF6EF] text-[#2E5B34] border-[#A8C9AC]'
+                            : 'bg-[#FFFDFC] text-[#6E625A] border-[#DED2C5] hover:bg-[#F8F3EB]'
                         }`}
                       >
                         <div className="flex items-center justify-between text-[11px] font-mono mb-1">
-                          <span className={isActive ? 'text-blue-200' : 'text-slate-400'}>
+                          <span className={isActive ? 'text-[#F3E9D8]' : 'text-[#93877D]'}>
                             Step {s.stepNumber}/4
                           </span>
                           <span className="flex items-center gap-1">
@@ -700,7 +691,7 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                         </div>
                         <div
                           className={`text-xs font-bold truncate ${
-                            isActive ? 'text-white' : isStepCompleted ? 'text-emerald-900' : 'text-slate-800'
+                            isActive ? 'text-[#FBF8F2]' : isStepCompleted ? 'text-[#1F5E2A]' : 'text-[#2F2520]'
                           }`}
                         >
                           {s.type === 'concept'
@@ -721,44 +712,44 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
               <div className="p-6 sm:p-8 space-y-6">
                 <div>
                   <div className="flex items-center gap-2 mb-2">
-                    <span className="text-xs font-bold uppercase tracking-wider text-blue-900 bg-blue-50 px-2.5 py-0.5 rounded font-mono">
+                    <span className="text-xs font-bold uppercase tracking-wider text-[#6B4A35] bg-[#EEE4D8] border border-[#CBB9A7] px-2.5 py-0.5 rounded font-mono">
                       Stage {currentStep.stepNumber} of 4 &bull; {currentStep.duration}
                     </span>
-                    <span className="text-xs text-slate-400 font-semibold">{currentStep.subtitle}</span>
+                    <span className="text-xs text-[#6E625A] font-semibold">{currentStep.subtitle}</span>
                   </div>
-                  <h2 className="text-xl sm:text-2xl font-black text-slate-900">
+                  <h2 className="text-xl sm:text-2xl font-black text-[#2F2520]">
                     {currentStep.title}
                   </h2>
                 </div>
 
-                <div className="bg-slate-50/70 p-6 rounded-2xl border border-slate-200 text-slate-800 text-sm leading-relaxed whitespace-pre-line font-sans">
+                <div className="bg-[#F8F3EB] p-6 rounded-2xl border border-[#DED2C5] text-[#2F2520] text-sm leading-relaxed whitespace-pre-line font-sans">
                   {currentStep.content}
                 </div>
 
-                <div className="p-4 rounded-xl bg-blue-50/80 border border-blue-200 flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-blue-900 text-white flex items-center justify-center shrink-0">
-                    <Sparkles className="w-4 h-4 text-amber-300" />
+                <div className="p-4 rounded-xl bg-[#FDF6EC] border border-[#D4A96A] flex items-start gap-3">
+                  <div className="w-8 h-8 rounded-lg bg-[#A97838] text-[#FFFDFC] flex items-center justify-center shrink-0">
+                    <Sparkles className="w-4 h-4 text-[#F3E9D8]" />
                   </div>
                   <div>
-                    <div className="text-xs font-bold uppercase tracking-wider text-blue-950">
+                    <div className="text-xs font-bold uppercase tracking-wider text-[#7A4F1E]">
                       Key Statistical Takeaway
                     </div>
-                    <p className="text-xs text-blue-900 mt-0.5 font-medium">
+                    <p className="text-xs text-[#7A4F1E] mt-0.5 font-medium">
                       {currentStep.keyTakeaway}
                     </p>
                   </div>
                 </div>
 
                 {currentStep.interactiveQuestion && (
-                  <div className="bg-slate-900 text-white p-6 rounded-2xl border border-slate-800 space-y-4">
+                  <div className="bg-[#2A1E19] text-[#FBF8F2] p-6 rounded-2xl border border-[#4D3628] space-y-4">
                     <div className="flex items-center gap-2">
-                      <span className="px-2.5 py-0.5 rounded bg-blue-600 text-white text-xs font-bold uppercase tracking-wider">
+                      <span className="px-2.5 py-0.5 rounded bg-[#6B4A35] text-[#FBF8F2] text-xs font-bold uppercase tracking-wider border border-[#8A6A52]">
                         Interactive Checkpoint
                       </span>
-                      <span className="text-xs text-slate-400">Choose the best option</span>
+                      <span className="text-xs text-[#CBB9A7]">Choose the best option</span>
                     </div>
 
-                    <h3 className="text-sm font-bold text-slate-100">
+                    <h3 className="text-sm font-bold text-[#FBF8F2]">
                       {currentStep.interactiveQuestion.question}
                     </h3>
 
@@ -773,14 +764,14 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
 
                         if (isAnswered) {
                           if (isCorrect) {
-                            btnClass += 'bg-emerald-950/80 border-emerald-400 text-emerald-100 font-bold';
+                            btnClass += 'bg-[#EFF6EF] border-[#547A5A] text-[#1F5E2A] font-bold';
                           } else if (selected) {
-                            btnClass += 'bg-rose-950/80 border-rose-400 text-rose-100';
+                            btnClass += 'bg-[#FBF0EF] border-[#9A4B42] text-[#7A2E2A]';
                           } else {
-                            btnClass += 'bg-slate-800/40 border-slate-700/60 text-slate-400 opacity-60';
+                            btnClass += 'bg-[#3A2921]/60 border-[#4D3628] text-[#93877D] opacity-60';
                           }
                         } else {
-                          btnClass += 'bg-slate-800 hover:bg-slate-750 border-slate-700 text-slate-200';
+                          btnClass += 'bg-[#3A2921] hover:bg-[#4D3628] border-[#4D3628] text-[#FBF8F2]';
                         }
 
                         return (
@@ -789,7 +780,7 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                             onClick={() => handleSelectOption(currentStepIdx, optIdx)}
                             className={btnClass}
                           >
-                            <span className="w-5 h-5 rounded-full bg-slate-700 text-slate-200 flex items-center justify-center font-mono text-[11px] shrink-0 font-bold">
+                            <span className="w-5 h-5 rounded-full bg-[#4D3628] text-[#FBF8F2] flex items-center justify-center font-mono text-[11px] shrink-0 font-bold">
                               {String.fromCharCode(65 + optIdx)}
                             </span>
                             <span>{opt}</span>
@@ -799,8 +790,8 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                     </div>
 
                     {showExplanation[currentStepIdx] && (
-                      <div className="p-3.5 rounded-xl bg-blue-950/90 border border-blue-500/40 text-xs text-blue-200 leading-relaxed animate-fadeIn">
-                        <strong className="text-white block mb-1">Explanation:</strong>
+                      <div className="p-3.5 rounded-xl bg-[#3A2921] border border-[#8A6A52] text-xs text-[#EDD8B4] leading-relaxed animate-fadeIn">
+                        <strong className="text-[#FBF8F2] block mb-1">Explanation:</strong>
                         {currentStep.interactiveQuestion.explanation}
                       </div>
                     )}
@@ -808,15 +799,15 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                 )}
 
                 {/* Bottom Step Actions */}
-                <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
+                <div className="pt-4 border-t border-[#DED2C5] flex items-center justify-between">
                   <button
                     type="button"
                     onClick={handlePrev}
                     disabled={currentStepIdx === 0}
                     className={`inline-flex items-center gap-1.5 px-4 py-2 rounded-xl text-xs font-semibold border transition-all ${
                       currentStepIdx === 0
-                        ? 'opacity-40 text-slate-400 border-slate-200 cursor-not-allowed'
-                        : 'text-slate-700 border-slate-300 hover:bg-slate-100 cursor-pointer'
+                        ? 'opacity-40 text-[#93877D] border-[#DED2C5] cursor-not-allowed'
+                        : 'text-[#3A2921] border-[#CBB9A7] bg-[#EEE4D8] hover:bg-[#DED2C5] cursor-pointer'
                     }`}
                   >
                     <ArrowLeft className="w-4 h-4" />
@@ -828,7 +819,7 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                       <button
                         type="button"
                         onClick={handleNext}
-                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold shadow-sm transition-all cursor-pointer"
+                        className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] text-xs font-bold shadow-xs transition-all cursor-pointer"
                       >
                         <span>Next: {steps[currentStepIdx + 1].type.replace('_', ' ')}</span>
                         <ArrowRight className="w-4 h-4" />
@@ -837,7 +828,7 @@ export const PersonalizedLearningPage: React.FC<PersonalizedLearningPageProps> =
                       <button
                         type="button"
                         onClick={handleCompleteLearning}
-                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold shadow-md transition-all cursor-pointer"
+                        className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#547A5A] hover:bg-[#436348] text-[#FBF8F2] text-xs font-bold shadow-xs transition-all cursor-pointer"
                       >
                         <CheckCircle2 className="w-4 h-4" />
                         <span>Complete Learning</span>

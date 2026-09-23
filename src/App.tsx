@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { AccessibilityProvider } from './components/common/AccessibilityContext';
 import { User, Competency, QuizAnswerRecord } from './types';
 import { AuthService } from './services/authService';
 import { CompetencyService } from './services/competencyService';
@@ -16,6 +17,7 @@ import { LogoutModal } from './components/common/LogoutModal';
 import { DemoWalkthroughModal } from './components/common/DemoWalkthroughModal';
 
 // Pages
+import { SyncoreeIntroPage } from './components/pages/SyncoreeIntroPage';
 import { LoginPage } from './components/pages/LoginPage';
 import { RegisterPage } from './components/pages/RegisterPage';
 import { DashboardPage } from './components/pages/DashboardPage';
@@ -41,7 +43,7 @@ import { AssessmentFinalResult } from './services/assessmentService';
 
 export default function App() {
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [authView, setAuthView] = useState<'login' | 'register'>('login');
+  const [authView, setAuthView] = useState<'intro' | 'login' | 'register'>('intro');
   const [activePage, setActivePage] = useState<NavPageId>('dashboard');
   const [selectedCompetencyId, setSelectedCompetencyId] = useState<string>('');
 
@@ -172,8 +174,11 @@ export default function App() {
     syncLiveDiagnostics();
   };
 
-  // If not authenticated, render Login or Register
+  // If not authenticated, render Intro, Login, or Register
   if (!currentUser) {
+    if (authView === 'intro') {
+      return <SyncoreeIntroPage onContinue={() => setAuthView('login')} />;
+    }
     if (authView === 'register') {
       return (
         <RegisterPage
@@ -186,6 +191,7 @@ export default function App() {
       <LoginPage
         onLoginSuccess={handleLoginSuccess}
         onNavigateRegister={() => setAuthView('register')}
+        onNavigateIntro={() => setAuthView('intro')}
       />
     );
   }
@@ -231,7 +237,8 @@ export default function App() {
     };
 
   return (
-    <div className="min-h-screen bg-slate-100 flex flex-col selection:bg-blue-600 selection:text-white font-sans">
+    <AccessibilityProvider>
+    <div className="min-h-screen bg-[#F5EFE6] flex flex-col font-sans">
       {/* Global Header */}
       <Header
         user={currentUser}
@@ -260,14 +267,14 @@ export default function App() {
         <main className="flex-1 min-w-0">
           {/* Toast Notification */}
           {toastMessage && (
-            <div className="mb-4 p-3.5 rounded-xl bg-blue-900 text-white text-xs font-semibold shadow-lg flex items-center justify-between gap-3 animate-fadeIn border border-blue-800">
+            <div className="mb-4 p-3.5 rounded-xl bg-[#3A2921] text-[#F8F3EB] text-xs font-semibold shadow-lg flex items-center justify-between gap-3 animate-fadeIn border border-[#4D3628]">
               <div className="flex items-center gap-2">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
+                <span className="w-2 h-2 rounded-full bg-[#547A5A] animate-ping"></span>
                 <span>{toastMessage}</span>
               </div>
               <button
                 onClick={() => setToastMessage(null)}
-                className="text-xs text-blue-300 hover:text-white cursor-pointer"
+                className="text-xs text-[#CBB9A7] hover:text-[#F8F3EB] cursor-pointer"
               >
                 ✕
               </button>
@@ -480,11 +487,11 @@ export default function App() {
       {/* Floating AI Assistant Trigger Button */}
       <button
         onClick={() => setShowAssistantDrawer(true)}
-        className="fixed bottom-6 right-6 z-40 p-3.5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white rounded-full shadow-2xl border border-blue-400/40 flex items-center gap-2 group transition-all hover:scale-105"
+        className="fixed bottom-6 right-6 z-40 p-3.5 bg-[#3A2921] hover:bg-[#4D3628] text-[#F8F3EB] rounded-full shadow-2xl border border-[#6B4A35]/60 flex items-center gap-2 transition-all hover:scale-105"
         title="Open AI Statistical Assistant"
         aria-label="Open AI Assistant"
       >
-        <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+        <span className="w-2.5 h-2.5 rounded-full bg-[#547A5A] animate-pulse" />
         <span className="text-xs font-bold pr-1">Ask AI</span>
       </button>
 
@@ -519,5 +526,6 @@ export default function App() {
         }}
       />
     </div>
+    </AccessibilityProvider>
   );
 }

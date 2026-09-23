@@ -2,20 +2,14 @@ import React, { useState } from 'react';
 import { User, Competency } from '../../types';
 import { AuthService } from '../../services/authService';
 import {
-  User as UserIcon,
   Mail,
   Phone,
   Calendar,
-  Building,
   Briefcase,
-  Award,
   ShieldCheck,
   Edit3,
   Save,
   CheckCircle2,
-  AlertTriangle,
-  Clock,
-  Sparkles,
 } from 'lucide-react';
 
 interface ProfilePageProps {
@@ -78,20 +72,20 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
   };
 
   return (
-    <div className="space-y-6 pb-12">
+    <div className="space-y-6 pb-12 animate-fadeIn">
       {/* Header */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+      <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 shadow-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-900 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-md">
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6B4A35] bg-[#EEE4D8] border border-[#CBB9A7] px-2.5 py-0.5 rounded-md">
               Civil Service Identity
             </span>
-            <span className="text-xs text-slate-400 font-mono">iGOT ID: {user.iGotId}</span>
+            <span className="text-xs text-[#6E625A] font-mono">iGOT ID: {user.iGotId}</span>
           </div>
-          <h1 className="text-2xl sm:text-3xl font-extrabold text-slate-900 tracking-tight">
+          <h1 className="text-2xl sm:text-3xl font-extrabold text-[#2F2520] tracking-tight">
             Officer Profile
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-[#6E625A] mt-1">
             Official government credentials and statutory competency service record.
           </p>
         </div>
@@ -99,15 +93,15 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         {!isEditing ? (
           <button
             onClick={() => setIsEditing(true)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold border border-slate-300 transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#EEE4D8] hover:bg-[#DED2C5] text-[#3A2921] text-xs font-semibold border border-[#CBB9A7] transition-all cursor-pointer"
           >
-            <Edit3 className="w-3.5 h-3.5" />
+            <Edit3 className="w-3.5 h-3.5 text-[#6B4A35]" />
             <span>Edit Profile Data</span>
           </button>
         ) : (
           <button
             onClick={() => setIsEditing(false)}
-            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-200 text-slate-700 text-xs font-semibold cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#F8F3EB] text-[#6E625A] border border-[#DED2C5] text-xs font-semibold cursor-pointer"
           >
             <span>Cancel</span>
           </button>
@@ -115,14 +109,14 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
       </div>
 
       {saveSuccess && (
-        <div className="p-4 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-950 flex items-center gap-2.5 text-xs font-medium animate-fadeIn">
-          <CheckCircle2 className="w-4 h-4 text-emerald-600 shrink-0" />
+        <div className="p-4 rounded-xl bg-[#EFF6EF] border border-[#A8C9AC] text-[#1F5E2A] flex items-center gap-2.5 text-xs font-medium animate-fadeIn">
+          <CheckCircle2 className="w-4 h-4 text-[#547A5A] shrink-0" />
           <span>Profile changes successfully recorded and synchronized to local storage.</span>
         </div>
       )}
 
       {/* Profile ID Card Visual */}
-      <div className="bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-sm">
+      <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] overflow-hidden shadow-xs">
         {/* Tricolor Ribbon */}
         <div className="h-1.5 w-full flex">
           <div className="w-1/3 bg-[#FF9933]"></div>
@@ -131,26 +125,26 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         </div>
 
         <div className="p-6 sm:p-8">
-          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pb-6 border-b border-slate-100">
+          <div className="flex flex-col sm:flex-row items-start sm:items-center gap-6 pb-6 border-b border-[#EEE4D8]">
             {/* Avatar */}
             <div className="relative">
               <img
                 src={user.profilePhoto || 'https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=256&auto=format&fit=crop'}
                 alt={user.name}
-                className="w-24 h-24 rounded-2xl object-cover border-2 border-slate-200 shadow-md"
+                className="w-24 h-24 rounded-2xl object-cover border-2 border-[#DED2C5] shadow-xs"
               />
-              <div className="absolute -bottom-2 -right-2 bg-blue-900 text-white p-1.5 rounded-xl shadow">
+              <div className="absolute -bottom-2 -right-2 bg-[#6B4A35] text-[#FFFDFC] p-1.5 rounded-xl shadow-xs">
                 <ShieldCheck className="w-4 h-4" />
               </div>
             </div>
 
             <div className="space-y-1">
-              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-900 text-xs font-bold border border-blue-200">
+              <div className="inline-flex items-center gap-2 px-2.5 py-0.5 rounded-full bg-[#EEE4D8] text-[#6B4A35] text-xs font-bold border border-[#CBB9A7]">
                 <span>{user.designation}</span>
               </div>
-              <h2 className="text-2xl font-black text-slate-900">{user.name}</h2>
-              <p className="text-xs text-slate-500 font-mono">
-                iGOT ID: <strong className="text-slate-800">{user.iGotId}</strong> &bull; {user.department}
+              <h2 className="text-2xl font-black text-[#2F2520]">{user.name}</h2>
+              <p className="text-xs text-[#6E625A] font-mono">
+                iGOT ID: <strong className="text-[#2F2520]">{user.iGotId}</strong> &bull; {user.department}
               </p>
             </div>
           </div>
@@ -160,73 +154,73 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
             <form onSubmit={handleSave} className="pt-6 space-y-4 text-xs">
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase mb-1">Full Name</label>
+                  <label className="block font-bold text-[#2F2520] uppercase mb-1">Full Name</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900"
+                    className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase mb-1">Email</label>
+                  <label className="block font-bold text-[#2F2520] uppercase mb-1">Email</label>
                   <input
                     type="email"
                     required
                     value={formData.email}
                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900"
+                    className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase mb-1">Phone</label>
+                  <label className="block font-bold text-[#2F2520] uppercase mb-1">Phone</label>
                   <input
                     type="text"
                     required
                     value={formData.phone}
                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900"
+                    className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase mb-1">Date of Birth</label>
+                  <label className="block font-bold text-[#2F2520] uppercase mb-1">Date of Birth</label>
                   <input
                     type="date"
                     required
                     value={formData.dob}
                     onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900"
+                    className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase mb-1">Department</label>
+                  <label className="block font-bold text-[#2F2520] uppercase mb-1">Department</label>
                   <input
                     type="text"
                     required
                     value={formData.department}
                     onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900"
+                    className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase mb-1">Designation</label>
+                  <label className="block font-bold text-[#2F2520] uppercase mb-1">Designation</label>
                   <input
                     type="text"
                     required
                     value={formData.designation}
                     onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900"
+                    className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase mb-1">
+                  <label className="block font-bold text-[#2F2520] uppercase mb-1">
                     Years of Experience
                   </label>
                   <input
@@ -237,19 +231,19 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
                     onChange={(e) =>
                       setFormData({ ...formData, yearsOfExperience: Number(e.target.value) })
                     }
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900"
+                    className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                   />
                 </div>
 
                 <div>
-                  <label className="block font-bold text-slate-700 uppercase mb-1">
+                  <label className="block font-bold text-[#2F2520] uppercase mb-1">
                     Profile Photo URL
                   </label>
                   <input
                     type="url"
                     value={formData.profilePhoto}
                     onChange={(e) => setFormData({ ...formData, profilePhoto: e.target.value })}
-                    className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900"
+                    className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:ring-2 focus:ring-[#6B4A35]"
                   />
                 </div>
               </div>
@@ -257,7 +251,7 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
               <div className="pt-4 flex justify-end">
                 <button
                   type="submit"
-                  className="px-6 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs shadow-md flex items-center gap-2 cursor-pointer"
+                  className="px-6 py-2.5 rounded-xl bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] font-bold text-xs shadow-xs flex items-center gap-2 cursor-pointer"
                 >
                   <Save className="w-4 h-4" />
                   <span>Save Changes</span>
@@ -267,33 +261,33 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
           ) : (
             <div className="pt-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-xs">
               <div className="space-y-1">
-                <span className="text-slate-400 uppercase tracking-wider font-semibold">Email</span>
-                <div className="text-slate-900 font-medium flex items-center gap-1.5">
-                  <Mail className="w-3.5 h-3.5 text-blue-900" />
+                <span className="text-[#93877D] uppercase tracking-wider font-semibold">Email</span>
+                <div className="text-[#2F2520] font-medium flex items-center gap-1.5">
+                  <Mail className="w-3.5 h-3.5 text-[#6B4A35]" />
                   {user.email}
                 </div>
               </div>
 
               <div className="space-y-1">
-                <span className="text-slate-400 uppercase tracking-wider font-semibold">Phone</span>
-                <div className="text-slate-900 font-medium flex items-center gap-1.5">
-                  <Phone className="w-3.5 h-3.5 text-blue-900" />
+                <span className="text-[#93877D] uppercase tracking-wider font-semibold">Phone</span>
+                <div className="text-[#2F2520] font-medium flex items-center gap-1.5">
+                  <Phone className="w-3.5 h-3.5 text-[#6B4A35]" />
                   {user.phone}
                 </div>
               </div>
 
               <div className="space-y-1">
-                <span className="text-slate-400 uppercase tracking-wider font-semibold">Date of Birth</span>
-                <div className="text-slate-900 font-medium flex items-center gap-1.5">
-                  <Calendar className="w-3.5 h-3.5 text-blue-900" />
+                <span className="text-[#93877D] uppercase tracking-wider font-semibold">Date of Birth</span>
+                <div className="text-[#2F2520] font-medium flex items-center gap-1.5">
+                  <Calendar className="w-3.5 h-3.5 text-[#6B4A35]" />
                   {user.dob}
                 </div>
               </div>
 
               <div className="space-y-1">
-                <span className="text-slate-400 uppercase tracking-wider font-semibold">Experience</span>
-                <div className="text-slate-900 font-medium flex items-center gap-1.5">
-                  <Briefcase className="w-3.5 h-3.5 text-blue-900" />
+                <span className="text-[#93877D] uppercase tracking-wider font-semibold">Experience</span>
+                <div className="text-[#2F2520] font-medium flex items-center gap-1.5">
+                  <Briefcase className="w-3.5 h-3.5 text-[#6B4A35]" />
                   {user.yearsOfExperience} Years of Official Service
                 </div>
               </div>
@@ -302,49 +296,49 @@ export const ProfilePage: React.FC<ProfilePageProps> = ({
         </div>
       </div>
 
-      {/* Competency Summary (Section 23) */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
-        <h3 className="text-base font-bold text-slate-900 mb-4 pb-3 border-b border-slate-100">
+      {/* Competency Summary */}
+      <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 sm:p-8 shadow-xs">
+        <h3 className="text-base font-bold text-[#2F2520] mb-4 pb-3 border-b border-[#EEE4D8]">
           Statutory Competency Summary Record
         </h3>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-[#F8F3EB] border border-[#DED2C5]">
+            <span className="text-[11px] font-bold text-[#6E625A] uppercase tracking-wider">
               Overall Competency Score
             </span>
-            <div className="text-3xl font-black text-blue-900 font-mono mt-1">72%</div>
-            <p className="text-[11px] text-slate-500 mt-1">Across 7 official domains</p>
+            <div className="text-3xl font-black text-[#6B4A35] font-mono mt-1">72%</div>
+            <p className="text-[11px] text-[#6E625A] mt-1">Across 7 official domains</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-emerald-50/70 border border-emerald-200">
-            <span className="text-[11px] font-bold text-emerald-900 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-[#EFF6EF] border border-[#A8C9AC]">
+            <span className="text-[11px] font-bold text-[#2E5B34] uppercase tracking-wider">
               Verified Competencies
             </span>
-            <div className="text-3xl font-black text-emerald-700 font-mono mt-1">
+            <div className="text-3xl font-black text-[#1F5E2A] font-mono mt-1">
               {verifiedCount}
             </div>
-            <p className="text-[11px] text-emerald-600 mt-1">Full practical proof approved</p>
+            <p className="text-[11px] text-[#2E5B34] mt-1">Full practical proof approved</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-rose-50/70 border border-rose-200">
-            <span className="text-[11px] font-bold text-rose-900 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-[#FBF0EF] border border-[#D4958F]">
+            <span className="text-[11px] font-bold text-[#7A2E2A] uppercase tracking-wider">
               Critical Gaps
             </span>
-            <div className="text-3xl font-black text-rose-700 font-mono mt-1">
+            <div className="text-3xl font-black text-[#9A4B42] font-mono mt-1">
               {criticalGaps}
             </div>
-            <p className="text-[11px] text-rose-600 mt-1">Python (45%), AI/ML (38%)</p>
+            <p className="text-[11px] text-[#7A2E2A] mt-1">Python (45%), AI/ML (38%)</p>
           </div>
 
-          <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
-            <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-[#FDF6EC] border border-[#D4A96A]">
+            <span className="text-[11px] font-bold text-[#7A4F1E] uppercase tracking-wider">
               Refresh Alerts
             </span>
-            <div className="text-3xl font-black text-amber-800 font-mono mt-1">
+            <div className="text-3xl font-black text-[#A97838] font-mono mt-1">
               {refreshAlerts}
             </div>
-            <p className="text-[11px] text-amber-700 mt-1">Ebbinghaus decay warning</p>
+            <p className="text-[11px] text-[#7A4F1E] mt-1">Ebbinghaus decay warning</p>
           </div>
         </div>
       </div>

@@ -26,81 +26,81 @@ export const GAP_X_STAGES: GapXStage[] = [
     id: 'OBSERVE',
     label: 'OBSERVE',
     description: 'Assessments & Evidence Collection',
-    color: 'text-sky-300',
-    bgColor: 'bg-sky-600/20',
-    borderColor: 'border-sky-400/40',
+    color: 'text-[#657A82]',
+    bgColor: 'bg-[#EEF0EE]',
+    borderColor: 'border-[#B8A28F]/40',
   },
   {
     index: 1,
     id: 'MAP',
     label: 'MAP',
     description: 'Competency Framework Mapping',
-    color: 'text-blue-300',
-    bgColor: 'bg-blue-600/20',
-    borderColor: 'border-blue-400/40',
+    color: 'text-[#6B4A35]',
+    bgColor: 'bg-[#EEE4D8]',
+    borderColor: 'border-[#CBB9A7]',
   },
   {
     index: 2,
     id: 'DIAGNOSE',
     label: 'DIAGNOSE',
     description: 'Gap Signal Extraction',
-    color: 'text-violet-300',
-    bgColor: 'bg-violet-600/20',
-    borderColor: 'border-violet-400/40',
+    color: 'text-[#4D3628]',
+    bgColor: 'bg-[#F8F3EB]',
+    borderColor: 'border-[#DED2C5]',
   },
   {
     index: 3,
     id: 'WHY-GAP',
     label: 'WHY-GAP',
     description: 'Misconception Root-Cause Detection',
-    color: 'text-amber-300',
-    bgColor: 'bg-amber-500/20',
-    borderColor: 'border-amber-400/40',
+    color: 'text-[#7A5C38]',
+    bgColor: 'bg-[#FDF6EC]',
+    borderColor: 'border-[#D4A96A]',
   },
   {
     index: 4,
     id: 'LEARN',
     label: 'LEARN',
     description: 'Personalised Micro-Learning Path',
-    color: 'text-cyan-300',
-    bgColor: 'bg-cyan-600/20',
-    borderColor: 'border-cyan-400/40',
+    color: 'text-[#547A5A]',
+    bgColor: 'bg-[#EFF6EF]',
+    borderColor: 'border-[#A8C9AC]',
   },
   {
     index: 5,
     id: 'ASSESS',
     label: 'ASSESS',
     description: 'Adaptive Rasch/1PL Assessment',
-    color: 'text-orange-300',
-    bgColor: 'bg-orange-500/20',
-    borderColor: 'border-orange-400/40',
+    color: 'text-[#A97838]',
+    bgColor: 'bg-[#FDF6EC]',
+    borderColor: 'border-[#D4A96A]',
   },
   {
     index: 6,
     id: 'VERIFY',
     label: 'VERIFY',
     description: 'Practical Competency Verification',
-    color: 'text-emerald-300',
-    bgColor: 'bg-emerald-600/20',
-    borderColor: 'border-emerald-400/40',
+    color: 'text-[#547A5A]',
+    bgColor: 'bg-[#EFF6EF]',
+    borderColor: 'border-[#8CBF94]',
   },
   {
     index: 7,
     id: 'MONITOR',
     label: 'MONITOR',
     description: 'Ebbinghaus Retention Monitoring',
-    color: 'text-amber-400',
-    bgColor: 'bg-amber-700/20',
-    borderColor: 'border-amber-600/40',
+    color: 'text-[#8A6A52]',
+    bgColor: 'bg-[#EEE4D8]',
+    borderColor: 'border-[#CBB9A7]',
   },
   {
     index: 8,
     id: 'SYNC',
     label: 'SYNC',
     description: 'iGOT Karmayogi Synchronisation',
-    color: 'text-indigo-300',
-    bgColor: 'bg-indigo-600/20',
-    borderColor: 'border-indigo-400/40',
+    color: 'text-[#3A2921]',
+    bgColor: 'bg-[#F8F3EB]',
+    borderColor: 'border-[#CBB9A7]',
   },
 ];
 
@@ -191,13 +191,13 @@ export function decayToRiskCategory(status: string, retention?: number): {
   border: string;
 } {
   if (status === 'Retained' || (retention !== undefined && retention >= 85)) {
-    return { label: 'STABLE', color: 'text-emerald-700', bg: 'bg-emerald-50', border: 'border-emerald-200' };
+    return { label: 'STABLE', color: 'text-[#2E5B34]', bg: 'bg-[#EFF6EF]', border: 'border-[#A8C9AC]' };
   }
   if (status === 'Refresh Recommended' || (retention !== undefined && retention >= 70)) {
-    return { label: 'MONITOR', color: 'text-amber-700', bg: 'bg-amber-50', border: 'border-amber-200' };
+    return { label: 'MONITOR', color: 'text-[#7A4F1E]', bg: 'bg-[#FDF6EC]', border: 'border-[#D4A96A]' };
   }
   if (retention !== undefined && retention >= 55) {
-    return { label: 'AT RISK', color: 'text-orange-700', bg: 'bg-orange-50', border: 'border-orange-200' };
+    return { label: 'AT RISK', color: 'text-[#B85C38]', bg: 'bg-[#FDF4EC]', border: 'border-[#D4A270]' };
   }
-  return { label: 'REFRESH REQUIRED', color: 'text-rose-700', bg: 'bg-rose-50', border: 'border-rose-200' };
+  return { label: 'REFRESH REQUIRED', color: 'text-[#7A2E2A]', bg: 'bg-[#FBF0EF]', border: 'border-[#D4958F]' };
 }

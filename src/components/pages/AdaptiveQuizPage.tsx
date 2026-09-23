@@ -6,7 +6,6 @@ import { apiClient } from '../../services/apiClient';
 import { NavPageId } from '../common/Sidebar';
 import { thetaToProficiencyLabel, seToCalibrationLabel } from '../../utils/gapxResolver';
 import {
-  FileCheck2,
   AlertTriangle,
   ArrowRight,
   ShieldAlert,
@@ -17,7 +16,6 @@ import {
   RefreshCw,
   ChevronRight,
   ChevronDown,
-  ChevronUp,
 } from 'lucide-react';
 
 interface AdaptiveQuizPageProps {
@@ -81,8 +79,7 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
     { label: 'Very High', desc: '100% certain' },
   ];
 
-  // ── When targetCompetencyId changes (e.g., navigated from CompetencyMap),
-  //    sync resolvedCompetencyId and reset picker ──
+  // ── When targetCompetencyId changes, sync resolvedCompetencyId ──
   useEffect(() => {
     setResolvedCompetencyId(targetCompetencyId);
     setErrorMessage(null);
@@ -106,7 +103,7 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
     return () => { active = false; };
   }, [resolvedCompetencyId]);
 
-  // ── When we have a resolved competency ID (either passed in or selected), start assessment ──
+  // ── When we have a resolved competency ID, start assessment ──
   useEffect(() => {
     if (!resolvedCompetencyId) return;
     initAssessment(resolvedCompetencyId);
@@ -222,38 +219,38 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
     itemStartTimeRef.current = Date.now();
   };
 
-  // ── COMPETENCY PICKER (shown when no targetCompetencyId provided) ──
+  // ── COMPETENCY PICKER ──
   if (!resolvedCompetencyId) {
     return (
-      <div className="space-y-6 pb-12">
+      <div className="space-y-6 pb-12 animate-fadeIn">
         {/* Header */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
+        <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 shadow-xs">
           <div className="flex items-center gap-2 mb-1">
-            <span className="text-xs font-bold uppercase tracking-wider text-blue-900 bg-blue-50 border border-blue-200 px-2.5 py-0.5 rounded-md">
-              Rasch/1PL Adaptive Assessment Prototype
+            <span className="text-xs font-bold uppercase tracking-wider text-[#6B4A35] bg-[#EEE4D8] border border-[#CBB9A7] px-2.5 py-0.5 rounded-md">
+              Rasch/1PL Adaptive Assessment Engine
             </span>
           </div>
-          <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight mt-1">
+          <h1 className="text-2xl font-extrabold text-[#2F2520] tracking-tight mt-1">
             Select a Competency to Assess
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-[#6E625A] mt-1">
             Choose a competency from the list below to begin your adaptive assessment session.
           </p>
         </div>
 
         {/* Picker body */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
+        <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 shadow-xs">
           {pickerLoading && (
-            <div className="flex items-center gap-3 text-slate-600 text-sm py-6">
-              <Loader2 className="w-5 h-5 text-blue-900 animate-spin" />
+            <div className="flex items-center gap-3 text-[#6E625A] text-sm py-6">
+              <Loader2 className="w-5 h-5 text-[#6B4A35] animate-spin" />
               Loading competencies from backend…
             </div>
           )}
 
           {pickerError && (
-            <div className="flex flex-col items-start gap-3 p-4 rounded-xl bg-rose-50 border border-rose-200 text-xs text-rose-900">
-              <div className="flex items-center gap-2 font-bold">
-                <AlertTriangle className="w-4 h-4 text-rose-600" />
+            <div className="flex flex-col items-start gap-3 p-4 rounded-xl bg-[#FBF0EF] border border-[#D4958F] text-xs text-[#7A2E2A]">
+              <div className="flex items-center gap-2 font-bold text-[#9A4B42]">
+                <AlertTriangle className="w-4 h-4" />
                 Failed to load competencies
               </div>
               <p>{pickerError}</p>
@@ -267,7 +264,7 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
                     .catch(() => setPickerError('Could not load competencies. Please retry.'))
                     .finally(() => setPickerLoading(false));
                 }}
-                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-rose-100 hover:bg-rose-200 text-rose-800 font-semibold transition-colors cursor-pointer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-[#EEE4D8] hover:bg-[#DED2C5] text-[#3A2921] border border-[#CBB9A7] font-semibold transition-colors cursor-pointer"
               >
                 <RefreshCw className="w-3 h-3" />
                 Retry
@@ -276,35 +273,35 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
           )}
 
           {!pickerLoading && !pickerError && pickerCompetencies.length === 0 && (
-            <p className="text-sm text-slate-500 italic py-4">
+            <p className="text-sm text-[#6E625A] italic py-4">
               No competencies found in the backend. Please ensure the database has been seeded.
             </p>
           )}
 
           {!pickerLoading && !pickerError && pickerCompetencies.length > 0 && (
             <div className="space-y-3">
-              <div className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">
+              <div className="text-xs font-bold text-[#6E625A] uppercase tracking-wider mb-2">
                 Available Competencies ({pickerCompetencies.length})
               </div>
               {pickerCompetencies.map((comp) => (
                 <button
                   key={comp.id}
                   onClick={() => handleSelectCompetency(comp.id)}
-                  className="w-full text-left p-4 rounded-xl border border-slate-200 bg-white hover:bg-blue-50/60 hover:border-blue-300 transition-all flex items-center justify-between gap-4 group cursor-pointer"
+                  className="w-full text-left p-4 rounded-xl border border-[#DED2C5] bg-[#FFFDFC] hover:bg-[#F8F3EB] hover:border-[#8A6A52] transition-all flex items-center justify-between gap-4 group cursor-pointer"
                 >
                   <div className="min-w-0">
                     <div className="flex items-center gap-2 flex-wrap">
-                      <span className="text-sm font-bold text-slate-900">{comp.name}</span>
-                      <span className="text-[10px] font-mono text-slate-500 bg-slate-100 px-1.5 py-0.5 rounded">
+                      <span className="text-sm font-bold text-[#2F2520] group-hover:text-[#6B4A35] transition-colors">{comp.name}</span>
+                      <span className="text-[10px] font-mono text-[#6E625A] bg-[#F8F3EB] border border-[#DED2C5] px-1.5 py-0.5 rounded">
                         {comp.category}
                       </span>
                       <span
-                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                        className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                           comp.status === 'competent'
-                            ? 'bg-emerald-50 text-emerald-800'
+                            ? 'bg-[#EFF6EF] text-[#2E5B34] border-[#A8C9AC]'
                             : comp.status === 'moderate_gap'
-                            ? 'bg-amber-50 text-amber-800'
-                            : 'bg-rose-50 text-rose-800'
+                            ? 'bg-[#FDF6EC] text-[#7A4F1E] border-[#D4A96A]'
+                            : 'bg-[#FBF0EF] text-[#7A2E2A] border-[#D4958F]'
                         }`}
                       >
                         {comp.status === 'competent'
@@ -314,12 +311,12 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
                           : 'Critical Gap'}
                       </span>
                     </div>
-                    <div className="text-xs text-slate-500 mt-0.5 font-mono">
+                    <div className="text-xs text-[#6E625A] mt-0.5 font-mono">
                       Score: {comp.score}% · Required: {comp.requiredScore}%
                       {comp.gapPoints > 0 && ` · Gap: ${comp.gapPoints}pts`}
                     </div>
                   </div>
-                  <ChevronRight className="w-4 h-4 text-slate-400 group-hover:text-blue-700 shrink-0 transition-colors" />
+                  <ChevronRight className="w-4 h-4 text-[#93877D] group-hover:text-[#6B4A35] shrink-0 transition-colors" />
                 </button>
               ))}
             </div>
@@ -329,30 +326,30 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
     );
   }
 
-  // ── LOADING STATE (while starting assessment) ──
+  // ── LOADING STATE ──
   if (isLoading && !currentItem) {
     return (
       <div className="officer-card p-12 text-center space-y-4">
-        <Loader2 className="w-8 h-8 text-blue-900 animate-spin mx-auto" />
-        <h3 className="text-base font-bold text-slate-800">Initializing Adaptive Assessment Engine…</h3>
-        <p className="text-xs text-slate-500">
+        <Loader2 className="w-8 h-8 text-[#6B4A35] animate-spin mx-auto" />
+        <h3 className="text-base font-bold text-[#2F2520]">Initializing Adaptive Assessment Engine…</h3>
+        <p className="text-xs text-[#6E625A]">
           Calibrating initial proficiency estimate against the competency knowledge graph.
         </p>
       </div>
     );
   }
 
-  // ── ERROR STATE (backend unavailable or competency not found) ──
+  // ── ERROR STATE ──
   if (errorMessage && !currentItem) {
     return (
-      <div className="bg-white rounded-2xl border border-rose-200 p-8 shadow-xs text-center space-y-4">
-        <AlertTriangle className="w-10 h-10 text-rose-600 mx-auto" />
-        <h3 className="text-lg font-bold text-slate-900">Adaptive Assessment Engine Offline</h3>
-        <p className="text-xs text-slate-600 max-w-md mx-auto">{errorMessage}</p>
+      <div className="bg-[#FFFDFC] rounded-2xl border border-[#D4958F] p-8 shadow-xs text-center space-y-4">
+        <AlertTriangle className="w-10 h-10 text-[#9A4B42] mx-auto" />
+        <h3 className="text-lg font-bold text-[#2F2520]">Adaptive Assessment Engine Offline</h3>
+        <p className="text-xs text-[#6E625A] max-w-md mx-auto">{errorMessage}</p>
         <div className="flex items-center justify-center gap-3 flex-wrap">
           <button
             onClick={() => initAssessment(resolvedCompetencyId)}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] text-xs font-bold transition-all cursor-pointer shadow-xs"
           >
             <RefreshCw className="w-3.5 h-3.5" />
             <span>Retry Connection</span>
@@ -363,7 +360,7 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
               setErrorMessage(null);
               setCurrentItem(null);
             }}
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold transition-all cursor-pointer"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#EEE4D8] hover:bg-[#DED2C5] text-[#3A2921] border border-[#CBB9A7] text-xs font-bold transition-all cursor-pointer"
           >
             Choose Different Competency
           </button>
@@ -386,37 +383,37 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-2">
               <span className="badge badge-unverified uppercase">Adaptive Assessment</span>
-              <span className="text-[11px] text-slate-400">Question {currentQuestionIdx + 1}</span>
+              <span className="text-[11px] text-[#6E625A]">Question {currentQuestionIdx + 1}</span>
             </div>
-            <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+            <h1 className="text-2xl font-black text-[#2F2520] tracking-tight">
               Competency Assessment
             </h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <p className="text-sm text-[#6E625A] mt-1">
               Adaptive questioning calibrated to your current proficiency level.
             </p>
           </div>
 
           {/* Officer-readable status chips */}
           <div className="flex items-center gap-2 flex-wrap">
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 border border-slate-200">
-              <Gauge className="w-3.5 h-3.5 text-blue-700" />
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#F8F3EB] border border-[#DED2C5]">
+              <Gauge className="w-3.5 h-3.5 text-[#6B4A35]" />
               <div className="text-xs">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-slate-500">Proficiency</div>
-                <div className="font-bold text-slate-900">{proficiencyLabel}</div>
+                <div className="text-[9px] font-bold uppercase tracking-wider text-[#6E625A]">Proficiency</div>
+                <div className="font-bold text-[#2F2520]">{proficiencyLabel}</div>
               </div>
             </div>
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 border border-slate-200">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#F8F3EB] border border-[#DED2C5]">
               <div className="text-xs">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-slate-500">Calibration</div>
-                <div className={`font-bold ${calibrationLabel === 'Calibrated' ? 'text-emerald-700' : 'text-amber-700'}`}>
+                <div className="text-[9px] font-bold uppercase tracking-wider text-[#6E625A]">Calibration</div>
+                <div className={`font-bold ${calibrationLabel === 'Calibrated' ? 'text-[#2E5B34]' : 'text-[#7A4F1E]'}`}>
                   {calibrationLabel}
                 </div>
               </div>
             </div>
-            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-slate-50 border border-slate-200">
+            <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#F8F3EB] border border-[#DED2C5]">
               <div className="text-xs">
-                <div className="text-[9px] font-bold uppercase tracking-wider text-slate-500">Difficulty</div>
-                <div className="font-bold text-slate-900 capitalize">{currentDifficulty}</div>
+                <div className="text-[9px] font-bold uppercase tracking-wider text-[#6E625A]">Difficulty</div>
+                <div className="font-bold text-[#2F2520] capitalize">{currentDifficulty}</div>
               </div>
             </div>
           </div>
@@ -424,9 +421,9 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
       </div>
 
       {/* Demo helper banner */}
-      <div className="p-3 bg-amber-50/80 border border-amber-300 rounded-xl flex items-center justify-between text-xs">
-        <div className="flex items-center gap-2 text-amber-950">
-          <Sparkles className="w-4 h-4 text-amber-600" />
+      <div className="p-3 bg-[#FDF6EC] border border-[#D4A96A] rounded-xl flex items-center justify-between text-xs">
+        <div className="flex items-center gap-2 text-[#7A4F1E]">
+          <Sparkles className="w-4 h-4 text-[#A97838]" />
           <span>
             <strong>Hackathon Test Scenario:</strong> Select distractor with <strong>High Confidence</strong> to test automatic misconception &amp; theta adjustment.
           </span>
@@ -436,21 +433,21 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
             setSelectedOption(0);
             setSelectedConfidence('High');
           }}
-          className="text-xs font-bold text-amber-900 bg-amber-200/80 px-2.5 py-1 rounded hover:bg-amber-300 transition-colors cursor-pointer shrink-0 ml-2"
+          className="text-xs font-bold text-[#7A4F1E] bg-[#EDD8B4] border border-[#D4A96A] px-2.5 py-1 rounded hover:bg-[#D4A96A] hover:text-[#FFFDFC] transition-colors cursor-pointer shrink-0 ml-2"
         >
           Preset Distractor
         </button>
       </div>
 
       {/* Main Question Card */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs space-y-6">
+      <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 sm:p-8 shadow-xs space-y-6">
         {/* Cognitive tag */}
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-slate-100 text-slate-700 text-xs font-semibold">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-md bg-[#F8F3EB] border border-[#DED2C5] text-[#3A2921] text-xs font-semibold">
           <span>Cognitive Dimension:</span>
-          <span className="font-mono text-slate-900 capitalize">{currentItem.cognitiveLevel} &bull; {currentItem.questionType}</span>
+          <span className="font-mono text-[#2F2520] capitalize">{currentItem.cognitiveLevel} &bull; {currentItem.questionType}</span>
         </div>
 
-        <h2 className="text-lg sm:text-xl font-extrabold text-slate-900 leading-snug">
+        <h2 className="text-lg sm:text-xl font-extrabold text-[#2F2520] leading-snug">
           {currentItem.stem}
         </h2>
 
@@ -464,17 +461,17 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
             if (hasSubmittedCurrent && currentOutcome) {
               const isCorrect = optIdx === currentOutcome.correctAnswer;
               if (isCorrect) {
-                cardClass += 'bg-emerald-50 border-emerald-400 text-emerald-950 font-semibold ring-1 ring-emerald-400';
+                cardClass += 'bg-[#EFF6EF] border-[#547A5A] text-[#1F5E2A] font-semibold ring-1 ring-[#547A5A]';
               } else if (isSelected) {
-                cardClass += 'bg-rose-50 border-rose-400 text-rose-950';
+                cardClass += 'bg-[#FBF0EF] border-[#9A4B42] text-[#7A2E2A]';
               } else {
-                cardClass += 'bg-slate-50 border-slate-200 text-slate-400 opacity-60';
+                cardClass += 'bg-[#F8F3EB] border-[#DED2C5] text-[#93877D] opacity-60';
               }
             } else {
               if (isSelected) {
-                cardClass += 'bg-blue-50/80 border-blue-600 text-blue-950 font-semibold ring-2 ring-blue-600/20';
+                cardClass += 'bg-[#EEE4D8] border-[#6B4A35] text-[#2F2520] font-semibold ring-2 ring-[#6B4A35]/25';
               } else {
-                cardClass += 'bg-white hover:bg-slate-50 border-slate-200 text-slate-800';
+                cardClass += 'bg-[#FFFDFC] hover:bg-[#F8F3EB] border-[#DED2C5] text-[#2F2520]';
               }
             }
 
@@ -487,7 +484,7 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
               >
                 <span
                   className={`w-6 h-6 rounded-full flex items-center justify-center font-mono text-xs font-bold shrink-0 transition-colors ${
-                    isSelected ? 'bg-blue-900 text-white' : 'bg-slate-100 text-slate-700'
+                    isSelected ? 'bg-[#6B4A35] text-[#FBF8F2]' : 'bg-[#F8F3EB] text-[#6E625A] border border-[#DED2C5]'
                   }`}
                 >
                   {String.fromCharCode(65 + optIdx)}
@@ -500,13 +497,13 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
 
         {/* Confidence Selector */}
         {!hasSubmittedCurrent && (
-          <div className="pt-4 border-t border-slate-100">
+          <div className="pt-4 border-t border-[#EEE4D8]">
             <div className="flex items-center justify-between mb-2">
-              <label className="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5">
-                <HelpCircle className="w-3.5 h-3.5 text-blue-900" />
+              <label className="text-xs font-bold uppercase tracking-wider text-[#2F2520] flex items-center gap-1.5">
+                <HelpCircle className="w-3.5 h-3.5 text-[#6B4A35]" />
                 Select Your Confidence Level Before Submitting *
               </label>
-              <span className="text-[11px] text-slate-400">Used for Metacognitive Calibration</span>
+              <span className="text-[11px] text-[#6E625A]">Used for Metacognitive Calibration</span>
             </div>
 
             <div className="grid grid-cols-2 sm:grid-cols-5 gap-2">
@@ -520,12 +517,12 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
                     onClick={() => setSelectedConfidence(conf.label)}
                     className={`p-2.5 rounded-xl border text-center transition-all cursor-pointer ${
                       isSelected
-                        ? 'bg-blue-900 text-white border-blue-900 shadow-xs font-bold'
-                        : 'bg-slate-50 hover:bg-slate-100 text-slate-700 border-slate-200 text-xs'
+                        ? 'bg-[#6B4A35] text-[#FBF8F2] border-[#6B4A35] shadow-xs font-bold'
+                        : 'bg-[#F8F3EB] hover:bg-[#EEE4D8] text-[#3A2921] border-[#DED2C5] text-xs'
                     }`}
                   >
                     <div className="text-xs font-semibold">{conf.label}</div>
-                    <div className={`text-[10px] mt-0.5 truncate ${isSelected ? 'text-blue-200' : 'text-slate-400'}`}>
+                    <div className={`text-[10px] mt-0.5 truncate ${isSelected ? 'text-[#F3E9D8]' : 'text-[#6E625A]'}`}>
                       {conf.desc}
                     </div>
                   </button>
@@ -537,19 +534,19 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
 
         {/* MISCONCEPTION DETECTED */}
         {activeMisconceptionAlert && (
-          <div className="p-5 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-950 animate-shake space-y-2">
-            <div className="flex items-center gap-2 text-rose-800 font-extrabold text-sm uppercase tracking-wider">
-              <ShieldAlert className="w-5 h-5 text-rose-600" />
+          <div className="p-5 rounded-xl bg-[#FBF0EF] border-2 border-[#D4958F] text-[#7A2E2A] animate-shake space-y-2">
+            <div className="flex items-center gap-2 text-[#9A4B42] font-extrabold text-sm uppercase tracking-wider">
+              <ShieldAlert className="w-5 h-5 text-[#9A4B42]" />
               <span>Possible Misconception Detected!</span>
             </div>
-            <p className="text-xs text-rose-900 leading-relaxed font-medium">
+            <p className="text-xs text-[#7A2E2A] leading-relaxed font-medium">
               {activeMisconceptionAlert}
             </p>
             <div className="pt-2 flex items-center gap-3">
               <button
                 type="button"
                 onClick={() => onNavigate('why-gap')}
-                className="text-xs font-bold text-rose-700 bg-rose-100 hover:bg-rose-200 px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
+                className="text-xs font-bold text-[#7A2E2A] bg-[#EEE4D8] hover:bg-[#DED2C5] border border-[#CBB9A7] px-3 py-1.5 rounded-lg transition-colors cursor-pointer"
               >
                 Inspect in Why-Gap Analysis &rarr;
               </button>
@@ -560,29 +557,29 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
         {/* Explanation after submission */}
         {hasSubmittedCurrent && currentOutcome && (
           <div className="space-y-2">
-            <div className="p-4 rounded-xl bg-slate-50 border border-slate-200 text-xs text-slate-700 leading-relaxed">
+            <div className="p-4 rounded-xl bg-[#F8F3EB] border border-[#DED2C5] text-xs text-[#2F2520] leading-relaxed">
               <div className="flex items-center justify-between mb-1.5">
-                <strong className="text-slate-900">Official Solution Explanation</strong>
+                <strong className="text-[#2F2520]">Official Solution Explanation</strong>
                 <div className="flex items-center gap-1.5">
-                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded ${
-                    currentOutcome.isCorrect ? 'bg-emerald-50 text-emerald-700' : 'bg-rose-50 text-rose-700'
+                  <span className={`text-[10px] font-semibold px-2 py-0.5 rounded border ${
+                    currentOutcome.isCorrect ? 'bg-[#EFF6EF] text-[#2E5B34] border-[#A8C9AC]' : 'bg-[#FBF0EF] text-[#7A2E2A] border-[#D4958F]'
                   }`}>
                     Proficiency: {thetaToProficiencyLabel(currentOutcome.thetaAfter)}
                   </span>
-                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-slate-100 text-slate-600">
+                  <span className="text-[10px] font-semibold px-2 py-0.5 rounded bg-[#EEE4D8] text-[#3A2921] border border-[#CBB9A7]">
                     Calibration: {seToCalibrationLabel(currentOutcome.standardError)}
                   </span>
                 </div>
               </div>
-              <p className="leading-relaxed">{currentOutcome.explanation}</p>
+              <p className="leading-relaxed text-[#3A2921]">{currentOutcome.explanation}</p>
             </div>
-            {/* Technical details (collapsible) — for advanced users */}
+            {/* Technical details (collapsible) */}
             <details className="group">
-              <summary className="text-[10px] text-slate-400 cursor-pointer hover:text-slate-600 flex items-center gap-1 px-1">
+              <summary className="text-[10px] text-[#6E625A] cursor-pointer hover:text-[#2F2520] flex items-center gap-1 px-1">
                 <ChevronDown className="w-3 h-3 group-open:rotate-180 transition-transform" />
                 Assessment Details (technical)
               </summary>
-              <div className="mt-1.5 p-3 rounded-lg bg-[#0f1923] text-slate-300 text-[10px] font-mono">
+              <div className="mt-1.5 p-3 rounded-lg bg-[#2A1E19] text-[#EEE4D8] text-[10px] font-mono border border-[#4D3628]">
                 θ: {currentOutcome.thetaAfter.toFixed(3)} · SE: ±{currentOutcome.standardError.toFixed(3)} · Items answered: {currentOutcome.itemsAnswered}
               </div>
             </details>
@@ -590,8 +587,8 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
         )}
 
         {/* Submit or Next Button */}
-        <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-          <div className="text-xs text-slate-500">
+        <div className="pt-4 border-t border-[#EEE4D8] flex items-center justify-between">
+          <div className="text-xs text-[#6E625A]">
             {hasSubmittedCurrent
               ? `Answer evaluated. Rasch adaptive ability estimate updated.`
               : 'Select an option and your confidence rating to submit.'}
@@ -602,10 +599,10 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
               type="button"
               disabled={selectedOption === null || isLoading}
               onClick={handleSubmitAnswer}
-              className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold shadow-md transition-all ${
+              className={`inline-flex items-center gap-2 px-6 py-2.5 rounded-xl text-xs font-bold shadow-xs transition-all ${
                 selectedOption === null || isLoading
-                  ? 'bg-slate-200 text-slate-400 cursor-not-allowed'
-                  : 'bg-blue-900 hover:bg-blue-800 text-white cursor-pointer active:scale-98'
+                  ? 'bg-[#EEE4D8] text-[#B8A28F] border border-[#DED2C5] cursor-not-allowed'
+                  : 'bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] cursor-pointer active:scale-98'
               }`}
             >
               {isLoading && <Loader2 className="w-3.5 h-3.5 animate-spin" />}
@@ -615,7 +612,7 @@ export const AdaptiveQuizPage: React.FC<AdaptiveQuizPageProps> = ({
             <button
               type="button"
               onClick={handleNextQuestion}
-              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-blue-900 hover:bg-blue-800 text-white text-xs font-bold shadow-md transition-all cursor-pointer active:scale-98"
+              className="inline-flex items-center gap-2 px-6 py-2.5 rounded-xl bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] text-xs font-bold shadow-xs transition-all cursor-pointer active:scale-98"
             >
               <span>
                 {currentOutcome?.isCompleted || !currentOutcome?.nextItem

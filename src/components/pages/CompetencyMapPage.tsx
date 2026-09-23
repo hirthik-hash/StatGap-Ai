@@ -9,7 +9,6 @@ import {
   AlertTriangle,
   AlertOctagon,
   Search,
-  Target,
   BookOpen,
   FileCheck2,
   TrendingDown,
@@ -63,10 +62,10 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
           <div>
             <div className="flex items-center gap-2 mb-2">
               <span className="badge badge-unverified uppercase">Framework Mapping</span>
-              <span className="text-[11px] text-slate-400">{competencies.length} Competency Domains</span>
+              <span className="text-[11px] text-[#6E625A] font-medium">{competencies.length} Competency Domains</span>
             </div>
-            <h1 className="text-2xl font-black text-slate-900 tracking-tight">Competency Map</h1>
-            <p className="text-sm text-slate-500 mt-1">
+            <h1 className="text-2xl font-black text-[#2F2520] tracking-tight">Competency Map</h1>
+            <p className="text-sm text-[#6E625A] mt-1">
               NSSTA standardized evaluation matrix — India's Official Statistical System.
             </p>
           </div>
@@ -74,39 +73,39 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
           <div className="flex flex-wrap items-center gap-2">
             {/* Search */}
             <div className="relative">
-              <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-slate-400" />
+              <Search className="w-3.5 h-3.5 absolute left-3 top-2.5 text-[#93877D]" />
               <input
                 type="text"
                 placeholder="Search competencies…"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                className="pl-8 pr-3 py-2 bg-slate-50 border border-slate-200 rounded-lg text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white w-48"
+                className="pl-8 pr-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-xs text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC] w-48"
               />
             </div>
 
             {/* Filter pills */}
-            <div className="inline-flex rounded-lg bg-slate-100 p-0.5 text-xs font-semibold">
+            <div className="inline-flex rounded-lg bg-[#EEE4D8] p-0.5 text-xs font-semibold">
               <button
                 onClick={() => setFilter('all')}
-                className={`px-2.5 py-1 rounded-md transition-all ${filter === 'all' ? 'bg-white text-slate-900 shadow-sm' : 'text-slate-500 hover:text-slate-900'}`}
+                className={`px-2.5 py-1 rounded-md transition-all ${filter === 'all' ? 'bg-[#FFFDFC] text-[#2F2520] shadow-sm' : 'text-[#6E625A] hover:text-[#2F2520]'}`}
               >
                 All ({competencies.length})
               </button>
               <button
                 onClick={() => setFilter('critical_gap')}
-                className={`px-2.5 py-1 rounded-md transition-all ${filter === 'critical_gap' ? 'bg-rose-600 text-white shadow-sm' : 'text-rose-700 hover:bg-rose-50'}`}
+                className={`px-2.5 py-1 rounded-md transition-all ${filter === 'critical_gap' ? 'bg-[#9A4B42] text-[#FBF8F2] shadow-sm' : 'text-[#7A2E2A] hover:bg-[#FBF0EF]'}`}
               >
                 Critical ({criticalCount})
               </button>
               <button
                 onClick={() => setFilter('moderate_gap')}
-                className={`px-2.5 py-1 rounded-md transition-all ${filter === 'moderate_gap' ? 'bg-amber-600 text-white shadow-sm' : 'text-amber-700 hover:bg-amber-50'}`}
+                className={`px-2.5 py-1 rounded-md transition-all ${filter === 'moderate_gap' ? 'bg-[#A97838] text-[#FBF8F2] shadow-sm' : 'text-[#7A4F1E] hover:bg-[#FDF6EC]'}`}
               >
                 Moderate ({moderateCount})
               </button>
               <button
                 onClick={() => setFilter('competent')}
-                className={`px-2.5 py-1 rounded-md transition-all ${filter === 'competent' ? 'bg-emerald-600 text-white shadow-sm' : 'text-emerald-700 hover:bg-emerald-50'}`}
+                className={`px-2.5 py-1 rounded-md transition-all ${filter === 'competent' ? 'bg-[#547A5A] text-[#FBF8F2] shadow-sm' : 'text-[#2E5B34] hover:bg-[#EFF6EF]'}`}
               >
                 Competent ({competentCount})
               </button>
@@ -115,20 +114,20 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
         </div>
 
         {/* Scoring formula — officer-readable */}
-        <div className="mt-4 pt-4 border-t border-slate-100 flex flex-wrap items-center gap-4 text-[11px] text-slate-600">
-          <span className="font-semibold text-slate-800">Composite Score:</span>
-          <span className="font-mono bg-slate-50 border border-slate-200 px-2 py-0.5 rounded text-slate-700">
+        <div className="mt-4 pt-4 border-t border-[#EEE4D8] flex flex-wrap items-center gap-4 text-[11px] text-[#6E625A]">
+          <span className="font-semibold text-[#2F2520]">Composite Score:</span>
+          <span className="font-mono bg-[#F8F3EB] border border-[#DED2C5] px-2 py-0.5 rounded text-[#3A2921]">
             Assessment (40%) + Quiz Accuracy (30%) + Practical (30%)
           </span>
-          <span className="text-rose-600 font-semibold">0–49%: Critical</span>
-          <span className="text-amber-600 font-semibold">50–74%: Moderate</span>
-          <span className="text-emerald-600 font-semibold">75%+: Competent</span>
+          <span className="text-[#9A4B42] font-semibold">0–49%: Critical</span>
+          <span className="text-[#A97838] font-semibold">50–74%: Moderate</span>
+          <span className="text-[#547A5A] font-semibold">75%+: Competent</span>
         </div>
       </div>
 
       {/* ── Competency Cards Grid ────────────────────────── */}
       {filtered.length === 0 ? (
-        <div className="officer-card p-8 text-center text-slate-500 text-sm">
+        <div className="officer-card p-8 text-center text-[#6E625A] text-sm">
           No competencies match your filter. Try adjusting the search or filter.
         </div>
       ) : (
@@ -136,28 +135,23 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
           {filtered.map((comp, i) => {
             // Status configuration
             let statusBadge: React.ReactNode;
-            let borderClass = 'border-slate-200';
-            let progressColor = 'bg-emerald-500';
-            let StatusIcon = CheckCircle2;
+            let borderClass = 'border-[#DED2C5]';
+            let progressColor = 'bg-[#547A5A]';
 
             if (comp.status === 'critical_gap') {
               statusBadge = <span className="badge badge-critical"><AlertOctagon className="w-3 h-3" />Critical Gap</span>;
-              borderClass = 'border-rose-200 hover:border-rose-300';
-              progressColor = 'bg-rose-500';
-              StatusIcon = AlertOctagon;
+              borderClass = 'border-[#D4958F] hover:border-[#9A4B42]';
+              progressColor = 'bg-[#9A4B42]';
             } else if (comp.status === 'moderate_gap') {
               statusBadge = <span className="badge badge-moderate"><AlertTriangle className="w-3 h-3" />Moderate Gap</span>;
-              borderClass = 'border-amber-200 hover:border-amber-300';
-              progressColor = 'bg-amber-500';
-              StatusIcon = AlertTriangle;
+              borderClass = 'border-[#D4A96A] hover:border-[#A97838]';
+              progressColor = 'bg-[#A97838]';
             } else {
               statusBadge = <span className="badge badge-competent"><CheckCircle2 className="w-3 h-3" />Competent</span>;
-              borderClass = 'border-emerald-100 hover:border-emerald-200';
+              borderClass = 'border-[#A8C9AC] hover:border-[#547A5A]';
             }
 
             // Decay risk
-            const retention = comp.decay.currentEstimatedRetention ?? comp.decay.current;
-            const riskInfo = decayToRiskCategory(comp.decay.status, retention);
             const hasDecayAlert = comp.decay.status === 'Refresh Recommended' || comp.decay.status === 'Critical Decay Alert';
 
             // Prerequisites
@@ -170,7 +164,7 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
               >
                 {/* Top row */}
                 <div className="flex items-start justify-between gap-2 mb-2">
-                  <div className="text-[10px] font-semibold text-slate-500 uppercase tracking-wide">
+                  <div className="text-[10px] font-semibold text-[#6E625A] uppercase tracking-wide">
                     {comp.category}
                   </div>
                   <div className="flex items-center gap-1.5 flex-wrap justify-end">
@@ -184,22 +178,22 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
                   </div>
                 </div>
 
-                <h3 className="text-sm font-bold text-slate-900 mb-1">{comp.name}</h3>
-                <p className="text-[11px] text-slate-500 leading-relaxed line-clamp-2 mb-3">{comp.description}</p>
+                <h3 className="text-sm font-bold text-[#2F2520] mb-1">{comp.name}</h3>
+                <p className="text-[11px] text-[#6E625A] leading-relaxed line-clamp-2 mb-3">{comp.description}</p>
 
                 {/* Score & progress */}
                 <div className="mb-3">
                   <div className="flex items-baseline justify-between mb-1">
-                    <span className="text-[11px] font-medium text-slate-600">
-                      Proficiency: <strong className="text-slate-800">{scoreToProficiency(comp.score)}</strong>
+                    <span className="text-[11px] font-medium text-[#6E625A]">
+                      Proficiency: <strong className="text-[#2F2520]">{scoreToProficiency(comp.score)}</strong>
                     </span>
-                    <span className="text-xs font-black font-mono text-slate-900">{comp.score}%</span>
+                    <span className="text-xs font-black font-mono text-[#2F2520]">{comp.score}%</span>
                   </div>
                   <div className="competency-bar">
                     <div className="competency-bar-threshold" />
                     <div className={`competency-bar-fill ${progressColor}`} style={{ width: `${comp.score}%` }} />
                   </div>
-                  <div className="text-[10px] text-slate-400 mt-0.5 text-right">Target: {comp.requiredScore}%</div>
+                  <div className="text-[10px] text-[#93877D] mt-0.5 text-right">Target: {comp.requiredScore}%</div>
                 </div>
 
                 {/* Evidence mini-row */}
@@ -209,9 +203,9 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
                     { label: 'Quiz', val: comp.evidence.quizAccuracy },
                     { label: 'Practical', val: comp.evidence.practicalPerformance },
                   ].map((ev) => (
-                    <div key={ev.label} className="text-center p-1.5 bg-slate-50 rounded border border-slate-100">
-                      <div className="text-[9px] text-slate-400 uppercase font-semibold">{ev.label}</div>
-                      <div className="text-xs font-bold text-slate-800 font-mono">{ev.val}%</div>
+                    <div key={ev.label} className="text-center p-1.5 bg-[#F8F3EB] rounded border border-[#DED2C5]">
+                      <div className="text-[9px] text-[#93877D] uppercase font-semibold">{ev.label}</div>
+                      <div className="text-xs font-bold text-[#2F2520] font-mono">{ev.val}%</div>
                     </div>
                   ))}
                 </div>
@@ -219,9 +213,9 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
                 {/* Prerequisites */}
                 {prereqs.length > 0 && (
                   <div className="mb-3 flex items-center gap-1 flex-wrap">
-                    <span className="text-[10px] text-slate-400">Requires:</span>
+                    <span className="text-[10px] text-[#93877D]">Requires:</span>
                     {prereqs.map((p) => (
-                      <span key={p} className="text-[10px] bg-blue-50 text-blue-700 border border-blue-100 px-1.5 py-0.5 rounded font-medium">
+                      <span key={p} className="text-[10px] bg-[#EEE4D8] text-[#6B4A35] border border-[#CBB9A7] px-1.5 py-0.5 rounded font-medium">
                         {p}
                       </span>
                     ))}
@@ -229,31 +223,31 @@ export const CompetencyMapPage: React.FC<CompetencyMapPageProps> = ({
                 )}
 
                 {/* Action buttons */}
-                <div className="mt-auto pt-3 border-t border-slate-100 flex items-center gap-2 flex-wrap">
+                <div className="mt-auto pt-3 border-t border-[#EEE4D8] flex items-center gap-2 flex-wrap">
                   <button
                     onClick={() => { onSelectCompetency(comp.id); onNavigate('why-gap'); }}
-                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-blue-50 hover:text-blue-800 text-slate-700 text-[10px] font-semibold transition-all"
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#F8F3EB] hover:bg-[#EEE4D8] hover:text-[#6B4A35] text-[#3A2921] border border-[#DED2C5] text-[10px] font-semibold transition-all"
                   >
-                    <Sparkles className="w-3 h-3" />
+                    <Sparkles className="w-3 h-3 text-[#A97838]" />
                     Diagnose
                   </button>
                   <button
                     onClick={() => { onSelectCompetency(comp.id); onNavigate('learning'); }}
-                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-cyan-50 hover:text-cyan-800 text-slate-700 text-[10px] font-semibold transition-all"
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#F8F3EB] hover:bg-[#EEE4D8] hover:text-[#547A5A] text-[#3A2921] border border-[#DED2C5] text-[10px] font-semibold transition-all"
                   >
-                    <BookOpen className="w-3 h-3" />
+                    <BookOpen className="w-3 h-3 text-[#547A5A]" />
                     Learn
                   </button>
                   <button
                     onClick={() => { onSelectCompetency(comp.id); onNavigate('assessments'); }}
-                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-slate-100 hover:bg-amber-50 hover:text-amber-800 text-slate-700 text-[10px] font-semibold transition-all"
+                    className="inline-flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-[#F8F3EB] hover:bg-[#EEE4D8] hover:text-[#A97838] text-[#3A2921] border border-[#DED2C5] text-[10px] font-semibold transition-all"
                   >
-                    <FileCheck2 className="w-3 h-3" />
+                    <FileCheck2 className="w-3 h-3 text-[#A97838]" />
                     Assess
                   </button>
                   <button
                     onClick={() => { onSelectCompetency(comp.id); onNavigate('gap-analysis'); }}
-                    className="ml-auto inline-flex items-center gap-0.5 text-[10px] font-semibold text-blue-600 hover:text-blue-800 transition-colors"
+                    className="ml-auto inline-flex items-center gap-0.5 text-[10px] font-semibold text-[#6B4A35] hover:text-[#3A2921] transition-colors"
                   >
                     Detail
                     <ChevronRight className="w-3 h-3" />

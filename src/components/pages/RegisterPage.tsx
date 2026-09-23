@@ -136,9 +136,9 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#0c1a30] via-[#0f2444] to-[#0a1526] text-white py-10 px-4 sm:px-6 selection:bg-blue-600 selection:text-white">
+    <div className="min-h-screen bg-[#F5EFE6] text-[#2F2520] py-10 px-4 sm:px-6 selection:bg-[#6B4A35] selection:text-[#FBF8F2]">
       {/* Top tricolor */}
-      <div className="fixed top-0 left-0 right-0 h-1.5 flex z-50">
+      <div className="fixed top-0 left-0 right-0 h-1 flex z-50">
         <div className="w-1/3 bg-[#FF9933]"></div>
         <div className="w-1/3 bg-white"></div>
         <div className="w-1/3 bg-[#138808]"></div>
@@ -148,28 +148,28 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
         {/* Header link back */}
         <button
           onClick={onNavigateLogin}
-          className="inline-flex items-center gap-1.5 text-xs font-semibold text-blue-300 hover:text-white mb-6 transition-colors"
+          className="inline-flex items-center gap-1.5 text-xs font-bold text-[#6B4A35] hover:text-[#3A2921] mb-6 transition-colors"
         >
           <ArrowLeft className="w-4 h-4" />
           Back to Login
         </button>
 
-        <div className="bg-white rounded-2xl p-6 sm:p-8 text-slate-900 shadow-2xl border border-slate-200">
-          <div className="flex items-center gap-3 pb-4 mb-6 border-b border-slate-100">
-            <div className="w-10 h-10 rounded-xl bg-blue-900 text-white flex items-center justify-center font-bold">
-              <UserPlus className="w-5 h-5" />
+        <div className="bg-[#FFFDFC] rounded-2xl p-6 sm:p-8 text-[#2F2520] shadow-md border border-[#DED2C5]">
+          <div className="flex items-center gap-3 pb-4 mb-6 border-b border-[#DED2C5]">
+            <div className="w-10 h-10 rounded-xl bg-[#3A2921] text-[#FBF8F2] flex items-center justify-center font-bold">
+              <UserPlus className="w-5 h-5 text-[#D4A96A]" />
             </div>
             <div>
-              <h2 className="text-xl font-bold text-slate-900">Officer Registration</h2>
-              <p className="text-xs text-slate-500">
+              <h2 className="text-xl font-bold text-[#2F2520]">Officer Registration</h2>
+              <p className="text-xs text-[#6E625A]">
                 Enroll into India's Official Statistical System Competency Intelligence Layer
               </p>
             </div>
           </div>
 
           {generalError && (
-            <div className="mb-5 p-3 rounded-lg bg-rose-50 border border-rose-200 flex items-start gap-2.5 text-rose-800 text-xs">
-              <AlertCircle className="w-4 h-4 shrink-0 text-rose-600 mt-0.5" />
+            <div className="mb-5 p-3 rounded-lg bg-[#FBF0EF] border border-[#D4958F] flex items-start gap-2.5 text-[#7A2E2A] text-xs">
+              <AlertCircle className="w-4 h-4 shrink-0 text-[#9A4B42] mt-0.5" />
               <span>{generalError}</span>
             </div>
           )}
@@ -178,7 +178,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               {/* Full Name */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Full Name *
                 </label>
                 <input
@@ -187,16 +187,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   placeholder="e.g. Vikramaditya Sen"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className={`w-full px-3 py-2 bg-slate-50 border rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white ${
-                    errors.name ? 'border-rose-400 bg-rose-50/50' : 'border-slate-300'
+                  className={`w-full px-3 py-2 bg-[#FBF8F2] border rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC] ${
+                    errors.name ? 'border-[#D4958F] bg-[#FBF0EF]' : 'border-[#CBB9A7]'
                   }`}
                 />
-                {errors.name && <p className="text-rose-600 mt-1">{errors.name}</p>}
+                {errors.name && <p className="text-[#9A4B42] mt-1">{errors.name}</p>}
               </div>
 
               {/* iGOT ID */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   iGOT ID *
                 </label>
                 <input
@@ -205,16 +205,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   placeholder="e.g. IGOT202600987"
                   value={formData.iGotId}
                   onChange={(e) => setFormData({ ...formData, iGotId: e.target.value })}
-                  className={`w-full px-3 py-2 bg-slate-50 border rounded-lg text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white ${
-                    errors.iGotId ? 'border-rose-400 bg-rose-50/50' : 'border-slate-300'
+                  className={`w-full px-3 py-2 bg-[#FBF8F2] border rounded-lg text-sm font-mono text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC] ${
+                    errors.iGotId ? 'border-[#D4958F] bg-[#FBF0EF]' : 'border-[#CBB9A7]'
                   }`}
                 />
-                {errors.iGotId && <p className="text-rose-600 mt-1">{errors.iGotId}</p>}
+                {errors.iGotId && <p className="text-[#9A4B42] mt-1">{errors.iGotId}</p>}
               </div>
 
               {/* Email */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Official Email *
                 </label>
                 <input
@@ -223,16 +223,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   placeholder="officer.name@gov.in"
                   value={formData.email}
                   onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                  className={`w-full px-3 py-2 bg-slate-50 border rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white ${
-                    errors.email ? 'border-rose-400 bg-rose-50/50' : 'border-slate-300'
+                  className={`w-full px-3 py-2 bg-[#FBF8F2] border rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC] ${
+                    errors.email ? 'border-[#D4958F] bg-[#FBF0EF]' : 'border-[#CBB9A7]'
                   }`}
                 />
-                {errors.email && <p className="text-rose-600 mt-1">{errors.email}</p>}
+                {errors.email && <p className="text-[#9A4B42] mt-1">{errors.email}</p>}
               </div>
 
               {/* Phone (10 digits) */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Phone (10 Digits) *
                 </label>
                 <input
@@ -242,16 +242,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   placeholder="9876543210"
                   value={formData.phone}
                   onChange={(e) => setFormData({ ...formData, phone: e.target.value.replace(/\D/g, '') })}
-                  className={`w-full px-3 py-2 bg-slate-50 border rounded-lg text-sm font-mono text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white ${
-                    errors.phone ? 'border-rose-400 bg-rose-50/50' : 'border-slate-300'
+                  className={`w-full px-3 py-2 bg-[#FBF8F2] border rounded-lg text-sm font-mono text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC] ${
+                    errors.phone ? 'border-[#D4958F] bg-[#FBF0EF]' : 'border-[#CBB9A7]'
                   }`}
                 />
-                {errors.phone && <p className="text-rose-600 mt-1">{errors.phone}</p>}
+                {errors.phone && <p className="text-[#9A4B42] mt-1">{errors.phone}</p>}
               </div>
 
               {/* DOB */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Date of Birth *
                 </label>
                 <input
@@ -259,16 +259,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   required
                   value={formData.dob}
                   onChange={(e) => setFormData({ ...formData, dob: e.target.value })}
-                  className={`w-full px-3 py-2 bg-slate-50 border rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white ${
-                    errors.dob ? 'border-rose-400 bg-rose-50/50' : 'border-slate-300'
+                  className={`w-full px-3 py-2 bg-[#FBF8F2] border rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC] ${
+                    errors.dob ? 'border-[#D4958F] bg-[#FBF0EF]' : 'border-[#CBB9A7]'
                   }`}
                 />
-                {errors.dob && <p className="text-rose-600 mt-1">{errors.dob}</p>}
+                {errors.dob && <p className="text-[#9A4B42] mt-1">{errors.dob}</p>}
               </div>
 
               {/* Years of Experience */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Years of Experience
                 </label>
                 <input
@@ -277,19 +277,19 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   max={45}
                   value={formData.yearsOfExperience}
                   onChange={(e) => setFormData({ ...formData, yearsOfExperience: Number(e.target.value) })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
+                  className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC]"
                 />
               </div>
 
               {/* Department */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Department *
                 </label>
                 <select
                   value={formData.department}
                   onChange={(e) => setFormData({ ...formData, department: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
+                  className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC]"
                 >
                   {departments.map((dept) => (
                     <option key={dept} value={dept}>
@@ -301,13 +301,13 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
 
               {/* Designation */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Designation *
                 </label>
                 <select
                   value={formData.designation}
                   onChange={(e) => setFormData({ ...formData, designation: e.target.value })}
-                  className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
+                  className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC]"
                 >
                   {designations.map((desig) => (
                     <option key={desig} value={desig}>
@@ -319,7 +319,7 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
 
               {/* Password */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Password (Min 8 Characters) *
                 </label>
                 <input
@@ -328,16 +328,16 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   placeholder="••••••••"
                   value={formData.password}
                   onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className={`w-full px-3 py-2 bg-slate-50 border rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white ${
-                    errors.password ? 'border-rose-400 bg-rose-50/50' : 'border-slate-300'
+                  className={`w-full px-3 py-2 bg-[#FBF8F2] border rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC] ${
+                    errors.password ? 'border-[#D4958F] bg-[#FBF0EF]' : 'border-[#CBB9A7]'
                   }`}
                 />
-                {errors.password && <p className="text-rose-600 mt-1">{errors.password}</p>}
+                {errors.password && <p className="text-[#9A4B42] mt-1">{errors.password}</p>}
               </div>
 
               {/* Confirm Password */}
               <div>
-                <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+                <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                   Confirm Password *
                 </label>
                 <input
@@ -346,17 +346,17 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                   placeholder="••••••••"
                   value={formData.confirmPassword}
                   onChange={(e) => setFormData({ ...formData, confirmPassword: e.target.value })}
-                  className={`w-full px-3 py-2 bg-slate-50 border rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white ${
-                    errors.confirmPassword ? 'border-rose-400 bg-rose-50/50' : 'border-slate-300'
+                  className={`w-full px-3 py-2 bg-[#FBF8F2] border rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC] ${
+                    errors.confirmPassword ? 'border-[#D4958F] bg-[#FBF0EF]' : 'border-[#CBB9A7]'
                   }`}
                 />
-                {errors.confirmPassword && <p className="text-rose-600 mt-1">{errors.confirmPassword}</p>}
+                {errors.confirmPassword && <p className="text-[#9A4B42] mt-1">{errors.confirmPassword}</p>}
               </div>
             </div>
 
             {/* Profile Photo URL (Optional) */}
             <div className="pt-1">
-              <label className="block font-bold text-slate-700 uppercase tracking-wider mb-1">
+              <label className="block font-bold text-[#6E625A] uppercase tracking-wider mb-1">
                 Profile Photo URL (Optional)
               </label>
               <input
@@ -364,22 +364,22 @@ export const RegisterPage: React.FC<RegisterPageProps> = ({
                 placeholder="https://... or leave empty for default avatar"
                 value={formData.profilePhoto}
                 onChange={(e) => setFormData({ ...formData, profilePhoto: e.target.value })}
-                className="w-full px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-sm text-slate-900 focus:outline-none focus:ring-2 focus:ring-blue-600 focus:bg-white"
+                className="w-full px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-sm text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35] focus:bg-[#FFFDFC]"
               />
             </div>
 
-            <div className="pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+            <div className="pt-4 border-t border-[#DED2C5] flex flex-col sm:flex-row items-center justify-between gap-3">
               <button
                 type="button"
                 onClick={onNavigateLogin}
-                className="text-xs text-slate-600 hover:text-slate-900 underline"
+                className="text-xs text-[#6B4A35] hover:text-[#3A2921] font-semibold underline"
               >
                 Already have an iGOT account? Log in
               </button>
 
               <button
                 type="submit"
-                className="w-full sm:w-auto px-6 py-2.5 rounded-lg bg-blue-900 hover:bg-blue-800 active:scale-98 text-white font-semibold text-xs shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer"
+                className="w-full sm:w-auto px-6 py-2.5 rounded-xl bg-[#6B4A35] hover:bg-[#523625] active:scale-98 text-[#FBF8F2] font-bold text-xs shadow-xs transition-all flex items-center justify-center gap-2 cursor-pointer"
               >
                 <Shield className="w-4 h-4" />
                 <span>Complete Registration</span>

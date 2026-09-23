@@ -1,0 +1,90 @@
+# render.yaml — Render Blueprint for StatGap AI Backend
+# ======================================================
+# This file declares the Render service configuration.
+# It contains NO secret values — all secrets are set in the Render dashboard.
+#
+# To deploy:
+# 1. Push this file to your GitHub repository root.
+# 2. In Render dashboard → New → Blueprint, connect your repository.
+# 3. Render will detect this file and pre-populate the service configuration.
+# 4. You MUST manually add all environment variable values marked as `sync: false`
+#    in the Render dashboard before the first deploy.
+
+services:
+  - type: web
+    name: statgap-ai-backend
+    runtime: python
+    # Root directory of the repository (where requirements.txt is NOT — we specify buildCommand)
+    rootDir: .
+    plan: free  # Change to starter or above for production uptime guarantees
+
+    # Build: install Python dependencies from backend/requirements.txt
+    buildCommand: pip install -r backend/requirements.txt
+
+    # Start: uvicorn runs from repo root using the full Python module path.
+    # $PORT is injected automatically by Render. Do not hardcode a port number.
+    # The backend app object is `app` in backend/app/main.py.
+    startCommand: uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
+
+    # Health check — Render uses this to determine when the instance is live.
+    # The /api/health endpoint already exists and returns {"status": "ok"}.
+    healthCheckPath: /api/health
+
+    envVars:
+      # ── Application ──────────────────────────────────────────────────────────
+      - key: ENVIRONMENT
+        value: production
+
+      # ── Database ─────────────────────────────────────────────────────────────
+      # Option A: Attach a Render PostgreSQL database — DATABASE_URL is injected automatically.
+      # Option B: Use an external PostgreSQL database and set DATABASE_URL manually below.
+      #
+      # IMPORTANT: Render provides a postgres:// URL. The backend requires psycopg3 dialect.
+      # You must convert the scheme: postgres:// → postgresql+psycopg://
+      # Set this value manually in the Render dashboard environment variable tab.
+      - key: DATABASE_URL
+        sync: false  # Set manually in Render dashboard — never commit real credentials
+
+      # ── JWT ──────────────────────────────────────────────────────────────────
+      - key: JWT_SECRET_KEY
+        sync: false  # Set manually — generate with: python -c "import secrets; print(secrets.token_urlsafe(48))"
+      - key: JWT_ALGORITHM
+        value: HS256
+      - key: ACCESS_TOKEN_EXPIRE_MINUTES
+        value: 1440
+
+      # ── CORS ─────────────────────────────────────────────────────────────────
+      # Set to your exact Vercel frontend URL after deploying the frontend.
+      # Example: https://statgap-ai.vercel.app
+      # Multiple origins: comma-separated, no spaces.
+      - key: CORS_ORIGINS
+        sync: false  # Set manually in Render dashboard after Vercel URL is known
+
+      # ── Gemini AI / RAG ───────────────────────────────────────────────────────
+      # Required for real AI features. Without it, mock providers are used.
+      - key: GEMINI_API_KEY
+        sync: false  # Set manually — obtain from https://aistudio.google.com/app/apikey
+      - key: GEMINI_MODEL
+        value: gemini-2.5-flash
+      - key: EMBEDDING_PROVIDER
+        value: gemini
+      - key: EMBEDDING_MODEL
+        value: text-embedding-004
+      - key: EMBEDDING_DIMENSION
+        value: 768
+
+      # ── Rate Limiting ─────────────────────────────────────────────────────────
+      - key: RATE_LIMIT_ENABLED
+        value: true
+      - key: RATE_LIMIT_PER_MINUTE
+        value: 120
+
+      # ── iGOT Integration ──────────────────────────────────────────────────────
+      - key: IGOT_MODE
+        value: mock  # Change to authorized when official iGOT credentials are provided
+
+      # ── NSSTA / TPAC ──────────────────────────────────────────────────────────
+      - key: NSSTA_MODE
+        value: mock
+      - key: TPAC_MODE
+        value: catalogue

@@ -10,7 +10,6 @@ import {
   CheckCircle2,
   AlertOctagon,
   BrainCircuit,
-  FileCheck,
   Target,
   HelpCircle,
   ChevronDown,
@@ -50,7 +49,7 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
     competency.misconceptionId
   );
 
-  // ── Blend live backend diagnosis, preserving UI contract ──
+  // ── Blend live backend diagnosis ──
   let displayDiagnosis: WhyGapDiagnosisResult = localDiagnosis;
   let diagnosticSynthesis =
     'The learner appears to confuse a regression coefficient with a percentage change. This pattern appears repeatedly across assessment and quiz responses.';
@@ -143,19 +142,19 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
               <Sparkles className="w-3 h-3" />
               Why-Gap Intelligence
             </span>
-            <span className="text-[11px] text-slate-400 font-mono">Diagnostic Engine v2.4</span>
+            <span className="text-[11px] text-[#6E625A] font-mono">Diagnostic Engine v2.4</span>
           </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Root Cause Diagnosis</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-black text-[#2F2520] tracking-tight">Root Cause Diagnosis</h1>
+          <p className="text-sm text-[#6E625A] mt-1">
             Evidence-grounded explanation of the competency gap beyond test scores.
           </p>
         </div>
         <button
           onClick={() => onNavigate('learning')}
-          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#0c1a30] hover:bg-[#102a4e] text-white text-xs font-bold shadow-sm transition-all shrink-0"
+          className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] text-xs font-bold shadow-xs transition-all shrink-0"
         >
           Start Targeted Micro-Learning
-          <ArrowRight className="w-4 h-4 text-blue-300" />
+          <ArrowRight className="w-4 h-4 text-[#DED2C5]" />
         </button>
       </div>
 
@@ -166,16 +165,16 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
       {/* Tier 1 — WHAT */}
       <div className="officer-card overflow-hidden">
         <div className="flex">
-          <div className="w-1.5 bg-blue-600 shrink-0" />
+          <div className="w-1.5 bg-[#6B4A35] shrink-0" />
           <div className="flex-1 p-5">
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] font-black uppercase tracking-widest text-blue-600">WHAT</span>
-              <span className="text-[11px] text-slate-400">— Current competency status</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#6B4A35]">WHAT</span>
+              <span className="text-[11px] text-[#6E625A]">— Current competency status</span>
             </div>
             <div className="flex flex-wrap items-center gap-4">
               <div>
-                <div className="text-3xl font-black font-mono text-slate-900">{competency.score}%</div>
-                <div className="text-xs text-slate-500 mt-0.5">Composite Score</div>
+                <div className="text-3xl font-black font-mono text-[#2F2520]">{competency.score}%</div>
+                <div className="text-xs text-[#6E625A] mt-0.5">Composite Score</div>
               </div>
               <div className="flex flex-wrap items-center gap-2">
                 <span className={`badge ${competency.status === 'critical_gap' ? 'badge-critical' : competency.status === 'moderate_gap' ? 'badge-moderate' : 'badge-competent'} text-sm`}>
@@ -183,7 +182,7 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
                   Proficiency: {scoreToProficiency(competency.score)}
                 </span>
                 {competency.gapPoints > 0 && (
-                  <span className="text-xs text-slate-600 bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200 font-mono">
+                  <span className="text-xs text-[#3A2921] bg-[#F8F3EB] px-2.5 py-1 rounded-lg border border-[#DED2C5] font-mono">
                     −{competency.gapPoints} pts below MoSPI standard ({competency.requiredScore}%)
                   </span>
                 )}
@@ -196,21 +195,21 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
       {/* Tier 2 — WHY */}
       <div className="officer-card overflow-hidden">
         <div className="flex">
-          <div className="w-1.5 bg-violet-600 shrink-0" />
+          <div className="w-1.5 bg-[#A97838] shrink-0" />
           <div className="flex-1 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-violet-600">WHY</span>
-              <span className="text-[11px] text-slate-400">— Primary gap classification</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#A97838]">WHY</span>
+              <span className="text-[11px] text-[#6E625A]">— Primary gap classification</span>
             </div>
             <div className="flex flex-wrap items-center gap-3">
-              <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-violet-50 border border-violet-200">
-                <BrainCircuit className="w-4 h-4 text-violet-700" />
+              <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#FDF6EC] border border-[#D4A96A]">
+                <BrainCircuit className="w-4 h-4 text-[#A97838]" />
                 <div>
-                  <div className="text-[10px] text-violet-600 font-bold uppercase tracking-wide">Gap Type</div>
-                  <div className="text-sm font-bold text-violet-900">{gapType}</div>
+                  <div className="text-[10px] text-[#7A4F1E] font-bold uppercase tracking-wide">Gap Type</div>
+                  <div className="text-sm font-bold text-[#2F2520]">{gapType}</div>
                 </div>
               </div>
-              <div className="text-xs text-slate-600 max-w-md leading-relaxed">
+              <div className="text-xs text-[#6E625A] max-w-md leading-relaxed">
                 {diagnosticSynthesis}
               </div>
             </div>
@@ -221,29 +220,29 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
       {/* Tier 3 — EVIDENCE */}
       <div className="officer-card overflow-hidden">
         <div className="flex">
-          <div className="w-1.5 bg-sky-600 shrink-0" />
+          <div className="w-1.5 bg-[#8A6A52] shrink-0" />
           <div className="flex-1 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-sky-600">EVIDENCE</span>
-              <span className="text-[11px] text-slate-400">— Multi-source corroborating data</span>
-              <span className="ml-auto text-[10px] bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#8A6A52]">EVIDENCE</span>
+              <span className="text-[11px] text-[#6E625A]">— Multi-source corroborating data</span>
+              <span className="ml-auto text-[10px] bg-[#F8F3EB] text-[#6E625A] border border-[#DED2C5] px-2 py-0.5 rounded font-mono">
                 Triangulated Audit · Strength: {displayDiagnosis.evidenceStrength}
               </span>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3">
               {[
-                { label: 'Assessment', value: displayDiagnosis.evidenceBreakdown.assessmentRate, flag: 'Below threshold', flagColor: 'bg-amber-50 text-amber-700' },
-                { label: 'Quiz Accuracy', value: displayDiagnosis.evidenceBreakdown.quizRate, flag: 'Continuous signal', flagColor: 'bg-slate-100 text-slate-600' },
-                { label: 'Practical', value: displayDiagnosis.evidenceBreakdown.practicalRate, flag: 'Needs verification', flagColor: 'bg-slate-100 text-slate-600' },
-                { label: 'Repeated Errors', value: String(displayDiagnosis.evidenceBreakdown.repeatedErrorCount), flag: 'Systematic pattern', flagColor: 'bg-rose-50 text-rose-700', highlight: true },
-                { label: 'Confidence Pattern', value: displayDiagnosis.evidenceBreakdown.confidenceCalibration, flag: 'Diagnostic signal', flagColor: 'bg-rose-50 text-rose-700', highlight: true },
+                { label: 'Assessment', value: displayDiagnosis.evidenceBreakdown.assessmentRate, flag: 'Below threshold', flagColor: 'bg-[#FDF6EC] text-[#7A4F1E] border border-[#D4A96A]' },
+                { label: 'Quiz Accuracy', value: displayDiagnosis.evidenceBreakdown.quizRate, flag: 'Continuous signal', flagColor: 'bg-[#F8F3EB] text-[#6E625A] border border-[#DED2C5]' },
+                { label: 'Practical', value: displayDiagnosis.evidenceBreakdown.practicalRate, flag: 'Needs verification', flagColor: 'bg-[#F8F3EB] text-[#6E625A] border border-[#DED2C5]' },
+                { label: 'Repeated Errors', value: String(displayDiagnosis.evidenceBreakdown.repeatedErrorCount), flag: 'Systematic pattern', flagColor: 'bg-[#FBF0EF] text-[#7A2E2A] border border-[#D4958F]', highlight: true },
+                { label: 'Confidence Pattern', value: displayDiagnosis.evidenceBreakdown.confidenceCalibration, flag: 'Diagnostic signal', flagColor: 'bg-[#FBF0EF] text-[#7A2E2A] border border-[#D4958F]', highlight: true },
               ].map((ev) => (
                 <div
                   key={ev.label}
-                  className={`p-3 rounded-lg border flex flex-col gap-1.5 ${ev.highlight ? 'bg-rose-50/40 border-rose-200' : 'bg-slate-50 border-slate-200'}`}
+                  className={`p-3 rounded-lg border flex flex-col gap-1.5 ${ev.highlight ? 'bg-[#FBF0EF] border-[#D4958F]' : 'bg-[#F8F3EB] border-[#DED2C5]'}`}
                 >
-                  <div className="text-[10px] font-bold text-slate-500 uppercase">{ev.label}</div>
-                  <div className="text-sm font-black text-slate-900 leading-tight">{ev.value}</div>
+                  <div className="text-[10px] font-bold text-[#6E625A] uppercase">{ev.label}</div>
+                  <div className="text-sm font-black text-[#2F2520] leading-tight">{ev.value}</div>
                   <span className={`text-[10px] font-semibold px-1.5 py-0.5 rounded self-start ${ev.flagColor}`}>
                     {ev.flag}
                   </span>
@@ -257,48 +256,48 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
       {/* Tier 4 — ROOT CAUSE */}
       <div className="officer-card overflow-hidden">
         <div className="flex">
-          <div className="w-1.5 bg-amber-500 shrink-0" />
+          <div className="w-1.5 bg-[#A97838] shrink-0" />
           <div className="flex-1 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-amber-600">ROOT CAUSE</span>
-              <span className="text-[11px] text-slate-400">— Identified misconception</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#A97838]">ROOT CAUSE</span>
+              <span className="text-[11px] text-[#6E625A]">— Identified misconception</span>
               <div className="ml-auto flex items-center gap-2 text-[10px] font-mono">
-                <span className="bg-slate-100 text-slate-600 px-2 py-0.5 rounded">
+                <span className="bg-[#F8F3EB] text-[#6E625A] border border-[#DED2C5] px-2 py-0.5 rounded">
                   Confidence: {displayDiagnosis.confidenceScore}
                 </span>
               </div>
             </div>
 
-            <h3 className="text-base font-bold text-slate-900 mb-3">
+            <h3 className="text-base font-bold text-[#2F2520] mb-3">
               {displayDiagnosis.identifiedMisconception?.name || 'Statistical Concept Misapplication'}
             </h3>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
-              <div className="p-4 rounded-lg bg-slate-50 border border-slate-200">
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-slate-600 uppercase mb-2">
-                  <HelpCircle className="w-3.5 h-3.5 text-amber-600" />
+              <div className="p-4 rounded-lg bg-[#F8F3EB] border border-[#DED2C5]">
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#6E625A] uppercase mb-2">
+                  <HelpCircle className="w-3.5 h-3.5 text-[#A97838]" />
                   What the Officer Believes
                 </div>
-                <p className="text-xs text-slate-700 leading-relaxed">
+                <p className="text-xs text-[#3A2921] leading-relaxed">
                   {displayDiagnosis.identifiedMisconception?.detailedExplanation ||
                     'The officer conflates marginal rates with elasticity percentages when interpreting statistical coefficients.'}
                 </p>
               </div>
-              <div className="p-4 rounded-lg bg-emerald-50 border border-emerald-200">
-                <div className="flex items-center gap-1.5 text-[10px] font-bold text-emerald-700 uppercase mb-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-emerald-600" />
+              <div className="p-4 rounded-lg bg-[#EFF6EF] border border-[#A8C9AC]">
+                <div className="flex items-center gap-1.5 text-[10px] font-bold text-[#2E5B34] uppercase mb-2">
+                  <CheckCircle2 className="w-3.5 h-3.5 text-[#547A5A]" />
                   The Correct Understanding
                 </div>
-                <p className="text-xs text-emerald-900 leading-relaxed">
+                <p className="text-xs text-[#1F5E2A] leading-relaxed">
                   {correctMathematicalTruth}
                 </p>
               </div>
             </div>
 
             {displayDiagnosis.identifiedMisconception?.counterExample && (
-              <div className="mt-3 p-3 rounded-lg bg-amber-50 border border-amber-200">
-                <div className="text-[10px] font-bold text-amber-700 uppercase mb-1">Field Counter-Example</div>
-                <p className="text-xs text-amber-900 font-mono leading-relaxed">
+              <div className="mt-3 p-3 rounded-lg bg-[#FDF6EC] border border-[#D4A96A]">
+                <div className="text-[10px] font-bold text-[#7A4F1E] uppercase mb-1">Field Counter-Example</div>
+                <p className="text-xs text-[#7A4F1E] font-mono leading-relaxed">
                   {displayDiagnosis.identifiedMisconception.counterExample}
                 </p>
               </div>
@@ -310,25 +309,25 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
       {/* Tier 5 — RECOMMENDATION */}
       <div className="officer-card overflow-hidden">
         <div className="flex">
-          <div className="w-1.5 bg-emerald-600 shrink-0" />
+          <div className="w-1.5 bg-[#547A5A] shrink-0" />
           <div className="flex-1 p-5">
             <div className="flex items-center gap-2 mb-3">
-              <span className="text-[10px] font-black uppercase tracking-widest text-emerald-600">RECOMMENDATION</span>
-              <span className="text-[11px] text-slate-400">— Concrete remediation task</span>
+              <span className="text-[10px] font-black uppercase tracking-widest text-[#547A5A]">RECOMMENDATION</span>
+              <span className="text-[11px] text-[#6E625A]">— Concrete remediation task</span>
             </div>
             <div className="flex flex-col sm:flex-row sm:items-center gap-4">
               <div className="flex-1">
                 <div className="flex items-start gap-3">
-                  <div className="w-8 h-8 rounded-lg bg-emerald-100 flex items-center justify-center shrink-0 mt-0.5">
-                    <Target className="w-4 h-4 text-emerald-700" />
+                  <div className="w-8 h-8 rounded-lg bg-[#EFF6EF] border border-[#A8C9AC] flex items-center justify-center shrink-0 mt-0.5">
+                    <Target className="w-4 h-4 text-[#547A5A]" />
                   </div>
                   <div>
-                    <p className="text-sm font-semibold text-slate-900 leading-snug">
+                    <p className="text-sm font-semibold text-[#2F2520] leading-snug">
                       {displayDiagnosis.recommendedAction}
                     </p>
                     <div className="flex items-center gap-1.5 mt-2">
-                      <Link2 className="w-3 h-3 text-slate-400" />
-                      <span className="text-[10px] text-slate-500">
+                      <Link2 className="w-3 h-3 text-[#93877D]" />
+                      <span className="text-[10px] text-[#6E625A]">
                         Aligned with MoSPI NSSTA Training Standards · Statistical Methods Module 3
                       </span>
                     </div>
@@ -338,13 +337,13 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
               <div className="flex gap-2 shrink-0">
                 <button
                   onClick={() => onNavigate('misconception-library')}
-                  className="px-4 py-2 bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-semibold rounded-lg border border-slate-200 transition-all"
+                  className="px-4 py-2 bg-[#EEE4D8] hover:bg-[#DED2C5] text-[#3A2921] text-xs font-semibold rounded-lg border border-[#CBB9A7] transition-all"
                 >
                   Misconception Library
                 </button>
                 <button
                   onClick={() => onNavigate('learning')}
-                  className="px-4 py-2.5 bg-[#0c1a30] hover:bg-[#102a4e] text-white text-xs font-bold rounded-lg transition-all flex items-center gap-2"
+                  className="px-4 py-2.5 bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] text-xs font-bold rounded-lg shadow-xs transition-all flex items-center gap-2"
                 >
                   Start Learning
                   <ArrowRight className="w-3.5 h-3.5" />
@@ -357,15 +356,15 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
 
       {/* ── Grounding Status ─────────────────────────── */}
       {aiGrounded && (
-        <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-slate-50 border border-slate-200 text-xs">
-          <ShieldCheck className="w-3.5 h-3.5 text-emerald-600 shrink-0" />
-          <span className="text-slate-600">
+        <div className="flex items-center gap-2 px-4 py-2.5 rounded-lg bg-[#F8F3EB] border border-[#DED2C5] text-xs">
+          <ShieldCheck className="w-3.5 h-3.5 text-[#547A5A] shrink-0" />
+          <span className="text-[#6E625A]">
             RAG Grounding:{' '}
-            <strong className={`${aiGrounded.groundingStatus === 'grounded' ? 'text-emerald-700' : aiGrounded.groundingStatus === 'weak_grounding' ? 'text-amber-700' : 'text-rose-700'}`}>
+            <strong className={`${aiGrounded.groundingStatus === 'grounded' ? 'text-[#2E5B34]' : aiGrounded.groundingStatus === 'weak_grounding' ? 'text-[#7A4F1E]' : 'text-[#7A2E2A]'}`}>
               {aiGrounded.groundingStatus === 'grounded' ? 'Grounded' : aiGrounded.groundingStatus === 'weak_grounding' ? 'Weak Grounding' : 'Insufficient Grounding'}
             </strong>
             {aiGrounded.sources?.length > 0 && (
-              <span className="text-slate-500 ml-1">· {aiGrounded.sources.length} source(s) retrieved</span>
+              <span className="text-[#6E625A] ml-1">· {aiGrounded.sources.length} source(s) retrieved</span>
             )}
           </span>
         </div>
@@ -375,33 +374,33 @@ export const WhyGapPage: React.FC<WhyGapPageProps> = ({ competency, onNavigate }
       <div className="officer-card overflow-hidden">
         <button
           onClick={() => setTechOpen((v) => !v)}
-          className="w-full flex items-center justify-between p-4 text-left hover:bg-slate-50 transition-colors"
+          className="w-full flex items-center justify-between p-4 text-left hover:bg-[#F8F3EB] transition-colors"
           aria-expanded={techOpen}
         >
           <div className="flex items-center gap-2">
-            <Cpu className="w-4 h-4 text-slate-500" />
-            <span className="text-xs font-bold text-slate-700">Technical Diagnostics</span>
-            <span className="text-[10px] text-slate-400">— AI decision trace, IRT parameters, raw reasoning log</span>
+            <Cpu className="w-4 h-4 text-[#6E625A]" />
+            <span className="text-xs font-bold text-[#2F2520]">Technical Diagnostics</span>
+            <span className="text-[10px] text-[#6E625A]">— AI decision trace, IRT parameters, raw reasoning log</span>
           </div>
-          {techOpen ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+          {techOpen ? <ChevronUp className="w-4 h-4 text-[#6E625A]" /> : <ChevronDown className="w-4 h-4 text-[#6E625A]" />}
         </button>
 
         {techOpen && (
-          <div className="bg-[#0f1923] text-slate-300 p-5 font-mono text-xs border-t border-slate-800">
-            <div className="flex items-center justify-between pb-2 mb-3 border-b border-slate-800">
-              <span className="text-amber-400 font-bold">EXPLAINABLE AI ENGINE — DECISION TRACE</span>
-              <span className="text-slate-500 text-[10px]">Transparent Reasoning Log</span>
+          <div className="bg-[#2A1E19] text-[#EEE4D8] p-5 font-mono text-xs border-t border-[#4D3628]">
+            <div className="flex items-center justify-between pb-2 mb-3 border-b border-[#4D3628]">
+              <span className="text-[#EDD8B4] font-bold">EXPLAINABLE AI ENGINE — DECISION TRACE</span>
+              <span className="text-[#B8A28F] text-[10px]">Transparent Reasoning Log</span>
             </div>
             <div className="space-y-1.5">
               {displayDiagnosis.reasoningTrace.map((line, idx) => (
                 <div key={idx} className="flex items-start gap-2.5">
-                  <span className="text-blue-500 select-none shrink-0">&gt;&gt;</span>
-                  <span className={line.includes('RULE MATCH') || line.includes('INFERENCE') ? 'text-amber-300 font-bold' : 'text-slate-300'}>
+                  <span className="text-[#CBB9A7] select-none shrink-0">&gt;&gt;</span>
+                  <span className={line.includes('RULE MATCH') || line.includes('INFERENCE') ? 'text-[#EDD8B4] font-bold' : 'text-[#EEE4D8]'}>
                     {line}
                   </span>
                 </div>
               ))}
-              <div className="flex items-start gap-2.5 pt-2 border-t border-slate-800 text-emerald-400 font-bold">
+              <div className="flex items-start gap-2.5 pt-2 border-t border-[#4D3628] text-[#C8DEC8] font-bold">
                 <span className="select-none shrink-0">&gt;&gt;</span>
                 <span>PRESCRIPTION: {displayDiagnosis.recommendedAction}</span>
               </div>

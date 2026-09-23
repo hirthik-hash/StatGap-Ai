@@ -20,8 +20,20 @@ class ApiClient {
   private token: string | null = null;
 
   constructor() {
-    // Configurable via VITE_API_BASE_URL; falls back to local FastAPI development port 8000
-    this.baseUrl = (import.meta.env.VITE_API_BASE_URL as string) || 'http://localhost:8000';
+    // Configurable via VITE_API_BASE_URL.
+    // Development: falls back to local FastAPI port 8001 when env var is unset.
+    // Production:  VITE_API_BASE_URL MUST be set in the Vercel environment variable dashboard.
+    //              If it is missing in production, all API calls will fail. A console error is
+    //              emitted so the root cause is immediately visible in Vercel function logs.
+    const configuredUrl = import.meta.env.VITE_API_BASE_URL as string | undefined;
+    if (!configuredUrl && import.meta.env.PROD) {
+      console.error(
+        '[StatGap AI] CRITICAL: VITE_API_BASE_URL is not set. ' +
+        'All API calls will fail. Set this variable in the Vercel project settings ' +
+        'to the public URL of your Render backend (e.g. https://statgap-ai.onrender.com).'
+      );
+    }
+    this.baseUrl = configuredUrl || 'http://localhost:8001';
     try {
       this.token = localStorage.getItem(AUTH_TOKEN_KEY);
     } catch {

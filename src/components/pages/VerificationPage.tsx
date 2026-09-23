@@ -33,9 +33,6 @@ const VERIFICATION_RUNGS = [
     evidenceKey: 'assessmentScore' as const,
     threshold: 60,
     icon: Star,
-    color: 'text-blue-700',
-    bg: 'bg-blue-50',
-    border: 'border-blue-200',
   },
   {
     tier: 2,
@@ -44,9 +41,6 @@ const VERIFICATION_RUNGS = [
     evidenceKey: 'quizAccuracy' as const,
     threshold: 70,
     icon: FileCheck2,
-    color: 'text-violet-700',
-    bg: 'bg-violet-50',
-    border: 'border-violet-200',
   },
   {
     tier: 3,
@@ -55,9 +49,6 @@ const VERIFICATION_RUNGS = [
     evidenceKey: 'practicalPerformance' as const,
     threshold: 75,
     icon: ShieldCheck,
-    color: 'text-amber-700',
-    bg: 'bg-amber-50',
-    border: 'border-amber-200',
   },
   {
     tier: 4,
@@ -66,9 +57,6 @@ const VERIFICATION_RUNGS = [
     evidenceKey: null,
     threshold: 0,
     icon: Award,
-    color: 'text-emerald-700',
-    bg: 'bg-emerald-50',
-    border: 'border-emerald-200',
   },
 ];
 
@@ -171,42 +159,42 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="badge badge-verified uppercase">Evidence-Based Credentialing</span>
-            <span className="text-[11px] text-slate-400">National Statistical Systems Standard</span>
+            <span className="text-[11px] text-[#6E625A]">National Statistical Systems Standard</span>
           </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">Competency Verification</h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <h1 className="text-2xl font-black text-[#2F2520] tracking-tight">Competency Verification</h1>
+          <p className="text-sm text-[#6E625A] mt-1">
             Validating proficiency through triangulated evidence: Baseline → Assessment → Practical → Certified.
           </p>
         </div>
-        <div className="bg-[#0c1a30] text-white px-4 py-2.5 rounded-xl text-xs max-w-xs border border-slate-700/50 shrink-0">
-          <span className="text-amber-400 font-bold block mb-0.5">Core Principle:</span>
+        <div className="bg-[#2A1E19] text-[#FBF8F2] px-4 py-2.5 rounded-xl text-xs max-w-xs border border-[#4D3628] shrink-0">
+          <span className="text-[#EDD8B4] font-bold block mb-0.5">Core Principle:</span>
           &ldquo;Training completion does not equal verified competency.&rdquo;
         </div>
       </div>
 
       {/* Success Toast */}
       {successToast && (
-        <div className="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-emerald-950 flex items-start justify-between gap-3 animate-fadeIn">
+        <div className="p-4 rounded-xl bg-[#EFF6EF] border-2 border-[#547A5A] text-[#1F5E2A] flex items-start justify-between gap-3 animate-fadeIn">
           <div className="flex items-center gap-2.5 text-xs font-medium">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-5 h-5 text-[#547A5A] shrink-0" />
             <span>{successToast}</span>
           </div>
-          <button onClick={() => setSuccessToast(null)} className="text-xs font-bold text-emerald-800 hover:text-emerald-950">✕</button>
+          <button onClick={() => setSuccessToast(null)} className="text-xs font-bold text-[#2E5B34] hover:text-[#0E3C14]">✕</button>
         </div>
       )}
 
       {/* ══════════════════════════════════════════
           SELECTED COMPETENCY + VERIFY CTA
       ═══════════════════════════════════════════ */}
-      <div className="officer-card border-2 border-[#0c1a30] p-5 sm:p-6">
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-5 border-b border-slate-100">
+      <div className="officer-card border-2 border-[#6B4A35] p-5 sm:p-6">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-5 border-b border-[#EEE4D8]">
           <div className="space-y-1.5">
             <div className="flex items-center gap-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{selectedComp.category}</span>
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#6E625A]">{selectedComp.category}</span>
               {getStatusBadge(selectedComp)}
             </div>
-            <h2 className="text-xl font-black text-slate-900">{selectedComp.name}</h2>
-            <p className="text-xs text-slate-600 max-w-xl leading-relaxed">
+            <h2 className="text-xl font-black text-[#2F2520]">{selectedComp.name}</h2>
+            <p className="text-xs text-[#6E625A] max-w-xl leading-relaxed">
               Evaluating the officer's capacity to interpret marginal rates, diagnostic residuals, and OLS assumptions
               on real PLFS/NSS microdata tables. Composite score: {scoreToProficiency(selectedComp.score)}.
             </p>
@@ -215,8 +203,8 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
           {/* CTA */}
           <div className="flex flex-col sm:flex-row items-center gap-3 shrink-0">
             {verificationStatus === 'Verified' ? (
-              <div className="px-5 py-3 rounded-xl bg-emerald-50 border border-emerald-300 text-emerald-900 text-xs font-bold flex items-center gap-2">
-                <ShieldCheck className="w-5 h-5 text-emerald-600" />
+              <div className="px-5 py-3 rounded-xl bg-[#EFF6EF] border border-[#A8C9AC] text-[#1F5E2A] text-xs font-bold flex items-center gap-2">
+                <ShieldCheck className="w-5 h-5 text-[#547A5A]" />
                 Competency Fully Verified ✓
               </div>
             ) : (
@@ -224,20 +212,20 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
                 type="button"
                 disabled={isVerifying}
                 onClick={handleVerify}
-                className="px-6 py-3 rounded-xl bg-emerald-700 hover:bg-emerald-600 text-white font-bold text-xs shadow-sm transition-all flex items-center gap-2 cursor-pointer disabled:opacity-70"
+                className="px-6 py-3 rounded-xl bg-[#547A5A] hover:bg-[#436348] text-[#FBF8F2] font-bold text-xs shadow-xs transition-all flex items-center gap-2 cursor-pointer disabled:opacity-70"
               >
                 {isVerifying ? (
                   <span className="inline-block w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
                 ) : (
-                  <ShieldCheck className="w-4 h-4 text-emerald-200" />
+                  <ShieldCheck className="w-4 h-4 text-[#C8DEC8]" />
                 )}
                 <span>Verify Competency</span>
-                <Sparkles className="w-3.5 h-3.5 text-amber-300" />
+                <Sparkles className="w-3.5 h-3.5 text-[#F3E9D8]" />
               </button>
             )}
             <button
               onClick={() => onNavigate('knowledge-decay')}
-              className="px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-colors"
+              className="px-4 py-3 rounded-xl bg-[#EEE4D8] hover:bg-[#DED2C5] text-[#3A2921] border border-[#CBB9A7] text-xs font-semibold transition-colors cursor-pointer"
             >
               Monitor Decay
             </button>
@@ -247,21 +235,21 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
         {/* 3 Pillars of Evidence */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-3 pt-5">
           {[
-            { label: '1. Assessment Score', key: 'assessmentScore', weight: 40, color: 'bg-blue-700' },
-            { label: '2. Quiz Performance', key: 'quizAccuracy', weight: 30, color: 'bg-violet-600' },
-            { label: '3. Practical Dataset', key: 'practicalPerformance', weight: 30, color: 'bg-emerald-600' },
+            { label: '1. Assessment Score', key: 'assessmentScore', weight: 40, color: 'bg-[#6B4A35]' },
+            { label: '2. Quiz Performance', key: 'quizAccuracy', weight: 30, color: 'bg-[#8A6A52]' },
+            { label: '3. Practical Dataset', key: 'practicalPerformance', weight: 30, color: 'bg-[#547A5A]' },
           ].map((pillar) => {
             const val = selectedComp.evidence[pillar.key as keyof typeof selectedComp.evidence] as number ?? 0;
             return (
-              <div key={pillar.key} className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2">
+              <div key={pillar.key} className="p-4 rounded-xl bg-[#F8F3EB] border border-[#DED2C5] space-y-2">
                 <div className="flex items-center justify-between text-xs font-bold">
-                  <span className="text-slate-500 uppercase tracking-wide">{pillar.label} ({pillar.weight}%)</span>
-                  <span className="font-mono text-slate-900">{val}%</span>
+                  <span className="text-[#6E625A] uppercase tracking-wide">{pillar.label} ({pillar.weight}%)</span>
+                  <span className="font-mono text-[#2F2520]">{val}%</span>
                 </div>
-                <div className="w-full bg-slate-200 h-2 rounded-full overflow-hidden">
+                <div className="w-full bg-[#EEE4D8] h-2 rounded-full overflow-hidden">
                   <div className={`${pillar.color} h-full rounded-full transition-all`} style={{ width: `${val}%` }} />
                 </div>
-                <p className="text-[10px] text-slate-500">Weight: {pillar.weight / 100}× contribution to composite.</p>
+                <p className="text-[10px] text-[#6E625A]">Weight: {pillar.weight / 100}× contribution to composite.</p>
               </div>
             );
           })}
@@ -273,9 +261,9 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
       ═══════════════════════════════════════════ */}
       <div className="officer-card p-5 sm:p-6">
         <div className="flex items-center gap-2 mb-4">
-          <ShieldCheck className="w-4 h-4 text-emerald-600" />
-          <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide">Verification Ladder</h3>
-          <span className="text-[10px] text-slate-400 ml-1">— Tier completion is based on backend evidence, not page visit</span>
+          <ShieldCheck className="w-4 h-4 text-[#547A5A]" />
+          <h3 className="text-sm font-bold text-[#2F2520] uppercase tracking-wide">Verification Ladder</h3>
+          <span className="text-[10px] text-[#6E625A] ml-1">— Tier completion is based on backend evidence, not page visit</span>
         </div>
 
         <div className="space-y-2.5">
@@ -291,31 +279,31 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
                 key={rung.tier}
                 className={`flex items-start gap-4 p-4 rounded-xl border transition-all ${
                   completed
-                    ? 'bg-emerald-50 border-emerald-200'
+                    ? 'bg-[#EFF6EF] border-[#A8C9AC]'
                     : inProgress
-                    ? 'bg-blue-50 border-blue-200'
-                    : 'bg-slate-50 border-slate-200 opacity-60'
+                    ? 'bg-[#F8F3EB] border-[#CBB9A7]'
+                    : 'bg-[#F8F3EB] border-[#DED2C5] opacity-65'
                 }`}
               >
                 {/* Tier icon */}
                 <div className={`w-9 h-9 rounded-lg flex items-center justify-center shrink-0 ${
-                  completed ? 'bg-emerald-100' : inProgress ? 'bg-blue-100' : 'bg-slate-100'
+                  completed ? 'bg-[#C8DEC8]' : inProgress ? 'bg-[#EEE4D8]' : 'bg-[#EEE4D8]'
                 }`}>
                   {completed ? (
-                    <CheckCircle2 className="w-5 h-5 text-emerald-600" />
+                    <CheckCircle2 className="w-5 h-5 text-[#2E5B34]" />
                   ) : (
-                    <Icon className={`w-5 h-5 ${completed ? 'text-emerald-600' : inProgress ? 'text-blue-600' : 'text-slate-400'}`} />
+                    <Icon className={`w-5 h-5 ${completed ? 'text-[#2E5B34]' : inProgress ? 'text-[#6B4A35]' : 'text-[#93877D]'}`} />
                   )}
                 </div>
 
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-0.5">
                     <span className={`text-[10px] font-black uppercase tracking-wider ${
-                      completed ? 'text-emerald-600' : inProgress ? 'text-blue-600' : 'text-slate-400'
+                      completed ? 'text-[#2E5B34]' : inProgress ? 'text-[#6B4A35]' : 'text-[#93877D]'
                     }`}>
                       Tier {rung.tier}
                     </span>
-                    <h4 className="text-xs font-bold text-slate-900">{rung.label}</h4>
+                    <h4 className="text-xs font-bold text-[#2F2520]">{rung.label}</h4>
                     {completed && (
                       <span className="badge badge-verified ml-auto">
                         <Check className="w-3 h-3" />
@@ -329,19 +317,19 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
                       </span>
                     )}
                     {pending && (
-                      <span className="text-[10px] text-slate-400 ml-auto">Awaiting verification</span>
+                      <span className="text-[10px] text-[#93877D] ml-auto">Awaiting verification</span>
                     )}
                   </div>
-                  <p className="text-[11px] text-slate-500 leading-relaxed">{rung.desc}</p>
+                  <p className="text-[11px] text-[#6E625A] leading-relaxed">{rung.desc}</p>
                   {val !== null && (
                     <div className="mt-2 flex items-center gap-2">
-                      <div className="flex-1 h-1.5 bg-slate-200 rounded-full overflow-hidden max-w-32">
+                      <div className="flex-1 h-1.5 bg-[#EEE4D8] rounded-full overflow-hidden max-w-32">
                         <div
-                          className={`h-full rounded-full ${completed ? 'bg-emerald-500' : inProgress ? 'bg-blue-500' : 'bg-slate-300'}`}
+                          className={`h-full rounded-full ${completed ? 'bg-[#547A5A]' : inProgress ? 'bg-[#6B4A35]' : 'bg-[#CBB9A7]'}`}
                           style={{ width: `${Math.min(val, 100)}%` }}
                         />
                       </div>
-                      <span className="text-[10px] font-mono text-slate-600">{val}% / {rung.threshold}% required</span>
+                      <span className="text-[10px] font-mono text-[#6E625A]">{val}% / {rung.threshold}% required</span>
                     </div>
                   )}
                 </div>
@@ -357,21 +345,21 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
       {verificationStatus === 'Verified' && (
         <div className="action-card p-6 sm:p-8">
           <div className="relative z-10 flex flex-col md:flex-row items-center gap-6">
-            <div className="w-16 h-16 rounded-full bg-emerald-500/20 border-2 border-emerald-400/40 flex items-center justify-center shrink-0">
-              <Award className="w-8 h-8 text-emerald-400" />
+            <div className="w-16 h-16 rounded-full bg-[#547A5A]/30 border-2 border-[#547A5A]/60 flex items-center justify-center shrink-0">
+              <Award className="w-8 h-8 text-[#C8DEC8]" />
             </div>
             <div className="text-center md:text-left">
-              <div className="text-emerald-400 font-bold text-sm uppercase tracking-widest mb-1">
+              <div className="text-[#C8DEC8] font-bold text-sm uppercase tracking-widest mb-1">
                 ✓ Verified Competency — Official Digital Badge
               </div>
-              <div className="text-white font-black text-xl">{selectedComp.name}</div>
-              <div className="text-slate-400 text-xs mt-1">
-                MoSPI NSSTA Standard · Triangulated Evidence · March 2026 Cohort
+              <div className="text-[#FBF8F2] font-black text-xl">{selectedComp.name}</div>
+              <div className="text-[#CBB9A7] text-xs mt-1">
+                MoSPI NSSTA Standard · Triangulated Evidence · Official Statistical Cadre
               </div>
             </div>
             <button
               onClick={() => onNavigate('knowledge-decay')}
-              className="ml-auto px-4 py-2.5 rounded-lg bg-white/10 hover:bg-white/15 text-white border border-white/15 text-xs font-semibold transition-all shrink-0"
+              className="ml-auto px-4 py-2.5 rounded-lg bg-[#EEE4D8] hover:bg-[#DED2C5] text-[#3A2921] border border-[#CBB9A7] text-xs font-semibold transition-all shrink-0 cursor-pointer"
             >
               Monitor Retention <ArrowRight className="w-3.5 h-3.5 inline ml-1" />
             </button>
@@ -383,14 +371,14 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
           CROSS-COMPETENCY REGISTRY TABLE
       ═══════════════════════════════════════════ */}
       <div className="officer-card p-5 sm:p-6">
-        <h3 className="text-sm font-bold text-slate-900 uppercase tracking-wide mb-4">
+        <h3 className="text-sm font-bold text-[#2F2520] uppercase tracking-wide mb-4">
           Cross-Competency Verification Registry
         </h3>
 
         <div className="overflow-x-auto">
           <table className="w-full text-xs text-left">
             <thead>
-              <tr className="border-b border-slate-200 text-slate-500 font-bold uppercase text-[10px] tracking-wider">
+              <tr className="border-b border-[#DED2C5] bg-[#F8F3EB] text-[#3A2921] font-bold uppercase text-[10px] tracking-wider">
                 <th className="py-2.5 px-3">Competency</th>
                 <th className="py-2.5 px-3">Category</th>
                 <th className="py-2.5 px-3">Score</th>
@@ -399,29 +387,29 @@ export const VerificationPage: React.FC<VerificationPageProps> = ({
                 <th className="py-2.5 px-3 text-right">Action</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-slate-100">
+            <tbody className="divide-y divide-[#EEE4D8]">
               {competencies.map((c) => (
                 <tr
                   key={c.id}
-                  className={`hover:bg-slate-50 transition-colors ${c.id === selectedCompetencyId ? 'bg-blue-50/40' : ''}`}
+                  className={`hover:bg-[#F5EFE6] transition-colors ${c.id === selectedCompetencyId ? 'bg-[#EEE4D8]/50' : 'bg-[#FFFDFC]'}`}
                 >
-                  <td className="py-3 px-3 font-bold text-slate-900">{c.name}</td>
-                  <td className="py-3 px-3 text-slate-500">{c.category}</td>
-                  <td className="py-3 px-3 font-mono font-bold text-slate-800">{c.score}%</td>
+                  <td className="py-3 px-3 font-bold text-[#2F2520]">{c.name}</td>
+                  <td className="py-3 px-3 text-[#6E625A]">{c.category}</td>
+                  <td className="py-3 px-3 font-mono font-bold text-[#2F2520]">{c.score}%</td>
                   <td className="py-3 px-3">{getStatusBadge(c)}</td>
                   <td className="py-3 px-3">
                     {c.verification.practicalEvidenceVerified ? (
-                      <span className="text-emerald-700 font-medium flex items-center gap-1">
+                      <span className="text-[#2E5B34] font-medium flex items-center gap-1">
                         <Check className="w-3.5 h-3.5" /> Approved
                       </span>
                     ) : (
-                      <span className="text-slate-400">Pending</span>
+                      <span className="text-[#93877D]">Pending</span>
                     )}
                   </td>
                   <td className="py-3 px-3 text-right">
                     <button
                       onClick={() => setSelectedCompetencyId(c.id)}
-                      className="text-blue-700 hover:text-blue-900 font-bold cursor-pointer"
+                      className="text-[#6B4A35] hover:text-[#3A2921] font-bold cursor-pointer"
                     >
                       Audit
                     </button>

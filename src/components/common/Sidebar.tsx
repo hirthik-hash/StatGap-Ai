@@ -96,6 +96,15 @@ const NAV_GROUPS = [
   },
 ];
 
+interface SidebarProps {
+  activePage: NavPageId;
+  onNavigate: (page: NavPageId) => void;
+  onOpenLogout?: () => void;
+  onLogout?: () => void;
+  mobileOpen?: boolean;
+  onCloseMobile?: () => void;
+}
+
 export const Sidebar: React.FC<SidebarProps> = ({
   activePage,
   onNavigate,
@@ -113,25 +122,25 @@ export const Sidebar: React.FC<SidebarProps> = ({
   };
 
   const navContent = (
-    <div className="flex flex-col h-full bg-[#0a1526] text-slate-300 select-none">
+    <div className="flex flex-col h-full bg-[#2F241E] text-[#EEE4D8] select-none">
 
-      {/* ── Compact GAP-X Lifecycle Pill ─────────────────── */}
-      <div className="px-3 pt-3 pb-2 border-b border-slate-800/60">
+      {/* ── GAP-X Lifecycle Indicator ─────────────────────── */}
+      <div className="px-3 pt-3 pb-2 border-b border-[#3D2E25]/80">
         <div className="flex items-center gap-1.5 mb-2">
-          <Activity className="w-3 h-3 text-blue-400 shrink-0" />
-          <span className="text-[9px] font-bold uppercase tracking-widest text-slate-500">
-            GAP-X Intelligence Cycle
+          <Activity className="w-3 h-3 text-[#B8A28F] shrink-0" />
+          <span className="text-[9px] font-bold uppercase tracking-widest text-[#6E5A4E]">
+            GAP-X Cycle
           </span>
           <button
             onClick={onCloseMobile}
-            className="lg:hidden ml-auto p-1 text-slate-500 hover:text-white rounded-md hover:bg-slate-800 transition-colors"
+            className="lg:hidden ml-auto p-1 text-[#6E5A4E] hover:text-[#EEE4D8] rounded-md hover:bg-[#3D2E25] transition-colors"
             aria-label="Close menu"
           >
             <X className="w-4 h-4" />
           </button>
         </div>
 
-        {/* 9 stage mini-pills in a 3×3 grid for compactness */}
+        {/* 9-stage grid */}
         <div className="grid grid-cols-3 gap-1">
           {GAP_X_STAGES.map((stage) => {
             const isCurrent = stage.id === activeStage.id;
@@ -141,12 +150,12 @@ export const Sidebar: React.FC<SidebarProps> = ({
                 title={`${stage.label}: ${stage.description}`}
                 className={`px-1.5 py-1 rounded text-center transition-all ${
                   isCurrent
-                    ? `${stage.bgColor} ${stage.borderColor} border`
-                    : 'bg-slate-800/30 border border-transparent'
+                    ? 'bg-[#5E402E] border border-[#8A6A52]'
+                    : 'bg-[#3D2E25]/50 border border-transparent'
                 }`}
               >
                 <div className={`text-[9px] font-bold leading-tight truncate ${
-                  isCurrent ? stage.color : 'text-slate-600'
+                  isCurrent ? 'text-[#F8F3EB]' : 'text-[#6E5A4E]'
                 }`}>
                   {stage.label}
                 </div>
@@ -157,26 +166,27 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </div>
 
       {/* ── Grouped Navigation ───────────────────────────── */}
-      <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-3">
+      <nav className="flex-1 overflow-y-auto py-2 px-2 space-y-3" aria-label="Main navigation">
         {NAV_GROUPS.map((group) => (
           <div key={group.label}>
-            <div className="section-label px-1 mb-1">
+            <div className="section-label px-1 mb-1 text-[#6E5A4E]">
               {group.label}
             </div>
             <div className="space-y-0.5">
               {group.items.map((item) => {
                 const Icon = item.icon;
                 const isActive = activePage === item.id;
+                const isHighlight = (item as { highlight?: boolean }).highlight;
 
                 let cls =
                   'flex items-center gap-2.5 w-full px-2.5 py-2 rounded-lg text-[11.5px] font-medium transition-all cursor-pointer ';
 
                 if (isActive) {
-                  cls += 'bg-blue-600 text-white font-semibold';
-                } else if ((item as { highlight?: boolean }).highlight) {
-                  cls += 'text-blue-300 hover:bg-blue-950/50 hover:text-blue-100 border border-blue-500/15 bg-blue-950/20';
+                  cls += 'bg-[#EEE4D8] text-[#2A1E19] font-semibold';
+                } else if (isHighlight) {
+                  cls += 'text-[#CBB9A7] hover:bg-[#3D2E25] hover:text-[#F8F3EB] border border-[#4D3628]/60 bg-[#3D2E25]/30';
                 } else {
-                  cls += 'text-slate-400 hover:bg-slate-800/70 hover:text-slate-100';
+                  cls += 'text-[#93877D] hover:bg-[#3D2E25] hover:text-[#EEE4D8]';
                 }
 
                 return (
@@ -189,10 +199,10 @@ export const Sidebar: React.FC<SidebarProps> = ({
                     <Icon
                       className={`w-3.5 h-3.5 shrink-0 ${
                         isActive
-                          ? 'text-white'
-                          : (item as { highlight?: boolean }).highlight
-                          ? 'text-blue-400'
-                          : 'text-slate-500'
+                          ? 'text-[#3A2921]'
+                          : isHighlight
+                          ? 'text-[#B8A28F]'
+                          : 'text-[#6E5A4E]'
                       }`}
                     />
                     <span className="truncate">{item.label}</span>
@@ -205,13 +215,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
       </nav>
 
       {/* ── Footer ──────────────────────────────────────── */}
-      <div className="p-2 border-t border-slate-800/60 bg-[#06101e]">
+      <div className="p-2 border-t border-[#3D2E25]/80 bg-[#251B15]">
         <button
           onClick={() => {
             onCloseMobile();
             handleLogout();
           }}
-          className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[11.5px] font-medium text-rose-400 hover:bg-rose-950/30 hover:text-rose-300 border border-rose-900/20 transition-colors"
+          className="w-full flex items-center gap-2.5 px-2.5 py-2 rounded-lg text-[11.5px] font-medium text-[#C17A73] hover:bg-[#4D2E2A]/40 hover:text-[#E8B0AA] border border-[#7A3530]/20 transition-colors"
         >
           <LogOut className="w-3.5 h-3.5" />
           <span>Logout Session</span>
@@ -224,15 +234,15 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <>
       {/* Desktop Sidebar */}
-      <aside className="hidden lg:block w-56 shrink-0 border-r border-slate-800/60 min-h-[calc(100vh-60px)]">
-        <div className="sticky top-[60px] h-[calc(100vh-60px)]">{navContent}</div>
+      <aside className="hidden lg:block w-56 shrink-0 border-r border-[#3D2E25] min-h-[calc(100vh-56px)]">
+        <div className="sticky top-[56px] h-[calc(100vh-56px)]">{navContent}</div>
       </aside>
 
       {/* Mobile Drawer */}
       {mobileOpen && (
         <div className="fixed inset-0 z-40 lg:hidden">
           <div
-            className="fixed inset-0 bg-slate-900/70 backdrop-blur-sm"
+            className="fixed inset-0 bg-[#2A1E19]/70 backdrop-blur-sm"
             onClick={onCloseMobile}
           />
           <div className="fixed inset-y-0 left-0 max-w-64 w-full shadow-2xl z-50">

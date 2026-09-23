@@ -154,30 +154,31 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-50 overflow-hidden flex justify-end bg-slate-900/60 backdrop-blur-sm animate-fade-in">
-      <div className="w-full max-w-xl bg-[#0f172a] text-slate-100 h-full shadow-2xl flex flex-col border-l border-slate-700 animate-slide-left">
+    <div className="fixed inset-0 z-50 overflow-hidden flex justify-end bg-[#2A1E19]/60 backdrop-blur-sm animate-fade-in">
+      <div className="w-full max-w-xl bg-[#FBF8F2] text-[#2F2520] h-full shadow-2xl flex flex-col border-l border-[#DED2C5] animate-slide-left">
         {/* Top Header */}
-        <div className="p-4 border-b border-slate-800 bg-[#1e293b]/80 flex items-center justify-between">
+        <div className="p-4 border-b border-[#DED2C5] bg-[#3A2921] flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-9 h-9 rounded-lg bg-blue-600/20 border border-blue-500/40 flex items-center justify-center text-blue-400">
+            <div className="w-9 h-9 rounded-lg bg-[#6B4A35]/30 border border-[#8A6A52]/40 flex items-center justify-center text-[#CBB9A7]">
               <Sparkles className="w-5 h-5" />
             </div>
             <div>
               <div className="flex items-center gap-2">
-                <h3 className="text-base font-semibold text-white">STAT-GAP AI Assistant</h3>
-                <span className="px-1.5 py-0.5 text-[10px] font-mono bg-blue-900/60 text-blue-300 border border-blue-700 rounded">
+                <h3 className="text-base font-semibold text-[#F8F3EB]">STAT-GAP AI Assistant</h3>
+                <span className="px-1.5 py-0.5 text-[10px] font-mono bg-[#6B4A35]/40 text-[#CBB9A7] border border-[#8A6A52]/50 rounded">
                   RAG Grounded
                 </span>
               </div>
-              <p className="text-xs text-slate-400">
-                MoSPI Domain Expert · Role: <span className="text-slate-200">{roleTitle}</span>
+              <p className="text-xs text-[#B8A28F]">
+                MoSPI Domain Expert · Role: <span className="text-[#F8F3EB]">{roleTitle}</span>
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
+            className="p-1.5 rounded-lg text-[#B8A28F] hover:text-[#F8F3EB] hover:bg-[#4D3628] transition-colors"
             title="Close Assistant"
+            aria-label="Close Assistant"
           >
             <X className="w-5 h-5" />
           </button>
@@ -187,12 +188,12 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
         <div className="flex-1 overflow-y-auto p-4 space-y-4 text-sm scrollbar-thin">
           {messages.length === 0 && (
             <div className="py-6 px-2 space-y-6">
-              <div className="bg-blue-950/40 border border-blue-800/60 rounded-xl p-4 text-slate-300">
-                <div className="flex items-center gap-2 text-blue-400 font-medium mb-1">
+              <div className="bg-[#F8F3EB] border border-[#DED2C5] rounded-xl p-4 text-[#6E625A]">
+                <div className="flex items-center gap-2 text-[#6B4A35] font-medium mb-1">
                   <BookOpen className="w-4 h-4" />
                   <span>Role-Aware Statistical Assistant</span>
                 </div>
-                <p className="text-xs leading-relaxed text-slate-400">
+                <p className="text-xs leading-relaxed text-[#93877D]">
                   Ask questions regarding MoSPI survey methodologies, standard operating procedures,
                   statistical diagnostic concepts, competency requirements, or recommended iGOT/NSSTA training pathways.
                 </p>
@@ -200,8 +201,8 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
 
               {/* Suggestions */}
               <div>
-                <div className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-2 flex items-center gap-1.5">
-                  <HelpCircle className="w-3.5 h-3.5 text-blue-400" />
+                <div className="text-xs font-semibold uppercase tracking-wider text-[#93877D] mb-2 flex items-center gap-1.5">
+                  <HelpCircle className="w-3.5 h-3.5 text-[#6B4A35]" />
                   <span>Suggested Inquiries for Your Cadre</span>
                 </div>
                 <div className="space-y-2">
@@ -209,15 +210,15 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
                     <button
                       key={idx}
                       onClick={() => handleSendMessage(item.query)}
-                      className="w-full text-left p-3 rounded-lg bg-slate-800/80 hover:bg-slate-700/80 border border-slate-700/80 transition-all hover:border-blue-500/50 group flex items-start justify-between gap-3"
+                      className="w-full text-left p-3 rounded-lg bg-[#F8F3EB] hover:bg-[#EEE4D8] border border-[#DED2C5] transition-all hover:border-[#B8A28F] group flex items-start justify-between gap-3"
                     >
                       <div>
-                        <div className="text-xs font-medium text-blue-300 mb-0.5">
+                        <div className="text-xs font-medium text-[#6B4A35] mb-0.5">
                           {item.title}
                         </div>
-                        <div className="text-xs text-slate-400 line-clamp-2">{item.query}</div>
+                        <div className="text-xs text-[#6E625A] line-clamp-2">{item.query}</div>
                       </div>
-                      <ChevronRight className="w-4 h-4 text-slate-500 group-hover:text-blue-400 shrink-0 mt-1 transition-colors" />
+                      <ChevronRight className="w-4 h-4 text-[#B8A28F] group-hover:text-[#6B4A35] shrink-0 mt-1 transition-colors" />
                     </button>
                   ))}
                 </div>
@@ -234,33 +235,33 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
               <div
                 className={`max-w-[90%] rounded-xl p-3.5 ${
                   msg.sender === 'user'
-                    ? 'bg-blue-600 text-white shadow-md'
-                    : 'bg-slate-800 border border-slate-700 text-slate-200'
+                    ? 'bg-[#EEE4D8] text-[#2A1E19] shadow-sm border border-[#DED2C5]'
+                    : 'bg-[#FFFDFC] border border-[#DED2C5] text-[#2F2520]'
                 }`}
               >
                 {/* Header for assistant */}
                 {msg.sender === 'assistant' && (
-                  <div className="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-slate-700/60 text-xs">
-                    <div className="flex items-center gap-1.5 font-medium text-slate-300">
-                      <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                  <div className="flex items-center justify-between gap-2 mb-2 pb-1.5 border-b border-[#EEE4D8] text-xs">
+                    <div className="flex items-center gap-1.5 font-medium text-[#6E625A]">
+                      <Sparkles className="w-3.5 h-3.5 text-[#6B4A35]" />
                       <span>STAT-GAP AI</span>
                     </div>
 
                     {/* Grounding Badge */}
                     {msg.groundingStatus === 'GROUNDED' && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-emerald-950 text-emerald-300 border border-emerald-700 flex items-center gap-1">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#EFF6EF] text-[#2E5B34] border border-[#A8C9AC] flex items-center gap-1">
                         <ShieldCheck className="w-3 h-3" /> Grounded (
                         {Math.round((msg.confidenceScore || 0.8) * 100)}%)
                       </span>
                     )}
                     {msg.groundingStatus === 'WEAKLY_GROUNDED' && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-amber-950 text-amber-300 border border-amber-700 flex items-center gap-1">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FDF6EC] text-[#7A4F1E] border border-[#D4A96A] flex items-center gap-1">
                         <AlertTriangle className="w-3 h-3" /> Moderate Grounding (
                         {Math.round((msg.confidenceScore || 0.5) * 100)}%)
                       </span>
                     )}
                     {msg.groundingStatus === 'INSUFFICIENT_EVIDENCE' && (
-                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-rose-950 text-rose-300 border border-rose-700 flex items-center gap-1">
+                      <span className="px-2 py-0.5 rounded-full text-[10px] font-semibold bg-[#FBF0EF] text-[#7A2E2A] border border-[#D4958F] flex items-center gap-1">
                         <AlertTriangle className="w-3 h-3" /> Ungrounded / Refusal
                       </span>
                     )}
@@ -272,22 +273,22 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
 
                 {/* Citations */}
                 {msg.citations && msg.citations.length > 0 && (
-                  <div className="mt-3 pt-2 border-t border-slate-700/70">
-                    <div className="text-[11px] font-semibold text-slate-400 mb-1.5 flex items-center gap-1">
-                      <FileText className="w-3 h-3 text-blue-400" /> Grounded Sources & Manuals:
+                  <div className="mt-3 pt-2 border-t border-[#EEE4D8]">
+                    <div className="text-[11px] font-semibold text-[#8A6A52] mb-1.5 flex items-center gap-1">
+                      <FileText className="w-3 h-3 text-[#6B4A35]" /> Grounded Sources & Manuals:
                     </div>
                     <div className="space-y-1">
                       {msg.citations.map((c, i) => (
                         <div
                           key={i}
-                          className="text-xs p-1.5 rounded bg-slate-900/70 border border-slate-800 flex items-center justify-between text-slate-300"
+                          className="text-xs p-1.5 rounded bg-[#F8F3EB] border border-[#DED2C5] flex items-center justify-between text-[#6E625A]"
                         >
                           <span className="truncate pr-2">
-                            <span className="font-semibold text-blue-300">[{i + 1}]</span>{' '}
+                            <span className="font-semibold text-[#6B4A35]">[{i + 1}]</span>{' '}
                             {c.title}
                             {c.section ? ` · ${c.section}` : ''}
                           </span>
-                          <span className="text-[10px] px-1.5 py-0.2 bg-slate-800 text-slate-400 rounded shrink-0">
+                          <span className="text-[10px] px-1.5 py-0.5 bg-[#EEE4D8] text-[#8A6A52] rounded shrink-0">
                             {c.source_type}
                           </span>
                         </div>
@@ -298,7 +299,7 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
 
                 {/* Follow-up actions */}
                 {msg.followups && msg.followups.length > 0 && (
-                  <div className="mt-3 pt-2 border-t border-slate-700/70 flex flex-wrap gap-1.5">
+                  <div className="mt-3 pt-2 border-t border-[#EEE4D8] flex flex-wrap gap-1.5">
                     {msg.followups.map((act, i) => (
                       <button
                         key={i}
@@ -309,7 +310,7 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
                             handleSendMessage(act.query);
                           }
                         }}
-                        className="px-2.5 py-1 text-xs rounded bg-blue-900/40 text-blue-200 hover:bg-blue-800/60 border border-blue-700/50 transition-colors flex items-center gap-1"
+                        className="px-2.5 py-1 text-xs rounded bg-[#EEE4D8] text-[#6B4A35] hover:bg-[#DED2C5] border border-[#CBB9A7] transition-colors flex items-center gap-1"
                       >
                         <span>{act.label}</span>
                         <ChevronRight className="w-3 h-3" />
@@ -320,7 +321,7 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
               </div>
 
               {/* Timestamp & Disclaimer */}
-              <div className="text-[10px] text-slate-500 mt-1 px-1 flex items-center gap-2">
+              <div className="text-[10px] text-[#93877D] mt-1 px-1 flex items-center gap-2">
                 <span>{msg.timestamp}</span>
                 {msg.disclaimer && <span className="italic">{msg.disclaimer}</span>}
               </div>
@@ -329,8 +330,8 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
 
           {/* Loading indicator */}
           {isLoading && (
-            <div className="flex items-center gap-2 text-slate-400 text-xs p-3 bg-slate-800/60 rounded-xl max-w-xs animate-pulse">
-              <RefreshCw className="w-3.5 h-3.5 animate-spin text-blue-400" />
+            <div className="flex items-center gap-2 text-[#8A6A52] text-xs p-3 bg-[#F8F3EB] border border-[#DED2C5] rounded-xl max-w-xs animate-pulse">
+              <RefreshCw className="w-3.5 h-3.5 animate-spin text-[#6B4A35]" />
               <span>Verifying statistical grounding against MoSPI manuals...</span>
             </div>
           )}
@@ -339,7 +340,7 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
         </div>
 
         {/* Input Bar */}
-        <div className="p-3 border-t border-slate-800 bg-[#1e293b]/90">
+        <div className="p-3 border-t border-[#DED2C5] bg-[#F8F3EB]">
           <form
             onSubmit={(e) => {
               e.preventDefault();
@@ -353,18 +354,19 @@ export const AiAssistantDrawer: React.FC<AiAssistantDrawerProps> = ({
               onChange={(e) => setQueryInput(e.target.value)}
               placeholder="Ask about methodology, standards, or gaps..."
               disabled={isLoading}
-              className="flex-1 bg-slate-900 border border-slate-700 rounded-lg px-3.5 py-2 text-sm text-slate-100 placeholder-slate-500 focus:outline-none focus:border-blue-500 focus:ring-1 focus:ring-blue-500 disabled:opacity-50"
+              className="flex-1 bg-[#FFFDFC] border border-[#DED2C5] rounded-lg px-3.5 py-2 text-sm text-[#2F2520] placeholder-[#B8A28F] focus:outline-none focus:border-[#6B4A35] focus:ring-1 focus:ring-[#6B4A35] disabled:opacity-50"
             />
             <button
               type="submit"
               disabled={!queryInput.trim() || isLoading}
-              className="p-2.5 bg-blue-600 hover:bg-blue-500 disabled:bg-slate-800 disabled:text-slate-600 text-white rounded-lg transition-colors shrink-0"
+              className="p-2.5 bg-[#5E402E] hover:bg-[#493124] disabled:bg-[#EEE4D8] disabled:text-[#B8A28F] text-[#F8F3EB] rounded-lg transition-colors shrink-0"
               title="Send Inquiry"
+              aria-label="Send message"
             >
               <Send className="w-4 h-4" />
             </button>
           </form>
-          <div className="text-[10px] text-slate-500 text-center mt-1.5">
+          <div className="text-[10px] text-[#93877D] text-center mt-1.5">
             Strict anti-hallucination safeguard active. MoSPI citation backed.
           </div>
         </div>

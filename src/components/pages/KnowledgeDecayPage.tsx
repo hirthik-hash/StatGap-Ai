@@ -6,17 +6,11 @@ import { CompetencyService } from '../../services/competencyService';
 import { VerificationApiService } from '../../services/verificationService';
 import { decayToRiskCategory } from '../../utils/gapxResolver';
 import {
-  Clock,
-  AlertTriangle,
   RotateCcw,
   Calendar,
-  Sparkles,
-  TrendingDown,
   ShieldAlert,
   CheckCircle2,
   BellRing,
-  BookOpen,
-  ArrowRight,
 } from 'lucide-react';
 
 interface KnowledgeDecayPageProps {
@@ -72,23 +66,23 @@ export const KnowledgeDecayPage: React.FC<KnowledgeDecayPageProps> = ({
         <div>
           <div className="flex items-center gap-2 mb-2">
             <span className="badge badge-decaying uppercase">Ebbinghaus Forgetting Model</span>
-            <span className="text-[11px] text-slate-400">Continuous Decay-Watch Engine</span>
+            <span className="text-[11px] text-[#6E625A]">Continuous Decay-Watch Engine</span>
           </div>
-          <h1 className="text-2xl font-black text-slate-900 tracking-tight">
+          <h1 className="text-2xl font-black text-[#2F2520] tracking-tight">
             Knowledge Decay Monitoring
           </h1>
-          <p className="text-sm text-slate-500 mt-1">
+          <p className="text-sm text-[#6E625A] mt-1">
             Mathematical modeling of skill degradation over time — ensures officers stay field-ready before PLFS surveys.
           </p>
         </div>
 
         {/* Quick Switcher */}
         <div className="flex items-center gap-2 text-xs">
-          <span className="text-slate-500 font-medium">Select Skill:</span>
+          <span className="text-[#6E625A] font-medium">Select Skill:</span>
           <select
             value={selectedCompetencyId}
             onChange={(e) => setSelectedCompetencyId(e.target.value)}
-            className="px-3 py-2 bg-slate-50 border border-slate-300 rounded-lg text-xs font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-600"
+            className="px-3 py-2 bg-[#FBF8F2] border border-[#CBB9A7] rounded-lg text-xs font-semibold text-[#2F2520] focus:outline-none focus:ring-2 focus:ring-[#6B4A35]"
           >
             {competencies.map((c) => (
               <option key={c.id} value={c.id}>
@@ -101,14 +95,14 @@ export const KnowledgeDecayPage: React.FC<KnowledgeDecayPageProps> = ({
 
       {/* Notifications */}
       {refreshedToast && (
-        <div className="p-4 rounded-xl bg-emerald-50 border-2 border-emerald-400 text-emerald-950 flex items-start justify-between gap-3 animate-fadeIn">
+        <div className="p-4 rounded-xl bg-[#EFF6EF] border-2 border-[#547A5A] text-[#1F5E2A] flex items-start justify-between gap-3 animate-fadeIn">
           <div className="flex items-center gap-2 text-xs font-medium">
-            <CheckCircle2 className="w-5 h-5 text-emerald-600 shrink-0" />
+            <CheckCircle2 className="w-5 h-5 text-[#547A5A] shrink-0" />
             <span>{refreshedToast}</span>
           </div>
           <button
             onClick={() => setRefreshedToast(null)}
-            className="text-xs font-bold text-emerald-800 hover:text-emerald-950 cursor-pointer"
+            className="text-xs font-bold text-[#2E5B34] hover:text-[#0E3C14] cursor-pointer"
           >
             ✕
           </button>
@@ -116,28 +110,27 @@ export const KnowledgeDecayPage: React.FC<KnowledgeDecayPageProps> = ({
       )}
 
       {reminderScheduled && (
-        <div className="p-4 rounded-xl bg-blue-50 border border-blue-300 text-blue-950 flex items-center gap-2.5 text-xs animate-fadeIn">
-          <BellRing className="w-4 h-4 text-blue-700 shrink-0" />
+        <div className="p-4 rounded-xl bg-[#F8F3EB] border border-[#DED2C5] text-[#2F2520] flex items-center gap-2.5 text-xs animate-fadeIn">
+          <BellRing className="w-4 h-4 text-[#6B4A35] shrink-0" />
           <span>
             Calendar reminder scheduled: MoSPI micro-refresher notification will trigger in 5 days via iGOT portal!
           </span>
         </div>
       )}
 
-      {/* Section 20: Spotlight Focus Card on Selected Competency */}
-      <div className={`officer-card p-5 sm:p-6 border-2 ${riskInfo.border.replace('border', 'border')}`} style={{ borderColor: riskInfo.border.includes('rose') ? '#fecdd3' : riskInfo.border.includes('amber') ? '#fde68a' : riskInfo.border.includes('orange') ? '#fdba74' : '#6ee7b7' }}>
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-5 border-b border-slate-100">
+      {/* Spotlight Focus Card on Selected Competency */}
+      <div className="officer-card p-5 sm:p-6 border-2 border-[#CBB9A7]">
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 pb-5 border-b border-[#EEE4D8]">
           <div>
             <div className="flex items-center gap-2 mb-2">
-              <span className="text-[10px] font-bold uppercase tracking-wider text-slate-500">{selectedComp.category}</span>
-              {/* Risk Category Badge — from centralized resolver */}
+              <span className="text-[10px] font-bold uppercase tracking-wider text-[#6E625A]">{selectedComp.category}</span>
               <span className={`badge ${riskInfo.color} ${riskInfo.bg} border ${riskInfo.border} font-bold`}>
                 {riskInfo.label}
               </span>
             </div>
 
-            <h2 className="text-2xl font-black text-slate-900">{selectedComp.name}</h2>
-            <p className="text-xs text-slate-500 mt-1 max-w-xl">
+            <h2 className="text-2xl font-black text-[#2F2520]">{selectedComp.name}</h2>
+            <p className="text-xs text-[#6E625A] mt-1 max-w-xl">
               Evaluated on {decay.lastEvaluatedDate} at {decay.initialScore}%. Without continuous practice, retention has degraded to {decay.currentEstimatedRetention}%.
             </p>
           </div>
@@ -146,90 +139,90 @@ export const KnowledgeDecayPage: React.FC<KnowledgeDecayPageProps> = ({
           <div className="flex flex-col sm:flex-row gap-2.5 shrink-0">
             <button
               onClick={handleRefreshKnowledge}
-              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-blue-900 hover:bg-blue-800 text-white font-bold text-xs shadow-md transition-all cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-5 py-3 rounded-xl bg-[#6B4A35] hover:bg-[#523625] text-[#FBF8F2] font-bold text-xs shadow-xs transition-all cursor-pointer"
             >
-              <RotateCcw className="w-4 h-4 text-amber-300" />
+              <RotateCcw className="w-4 h-4 text-[#F3E9D8]" />
               <span>Refresh Knowledge (5m Quiz)</span>
             </button>
 
             <button
               onClick={handleScheduleReminder}
-              className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 font-semibold text-xs border border-slate-300 transition-colors cursor-pointer"
+              className="inline-flex items-center justify-center gap-2 px-4 py-3 rounded-xl bg-[#EEE4D8] hover:bg-[#DED2C5] text-[#3A2921] font-semibold text-xs border border-[#CBB9A7] transition-colors cursor-pointer"
             >
-              <Calendar className="w-4 h-4 text-slate-600" />
+              <Calendar className="w-4 h-4 text-[#6B4A35]" />
               <span>Schedule Reminder</span>
             </button>
           </div>
         </div>
 
-        {/* 4 Metric Pills (Section 20) */}
+        {/* 4 Metric Pills */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 pt-6">
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-[#F8F3EB] border border-[#DED2C5]">
+            <span className="text-[11px] font-bold text-[#6E625A] uppercase tracking-wider">
               Score on {decay.lastEvaluatedDate}
             </span>
-            <div className="text-2xl font-black text-slate-900 font-mono mt-1">
+            <div className="text-2xl font-black text-[#2F2520] font-mono mt-1">
               {decay.initialScore}%
             </div>
-            <div className="text-[11px] text-slate-500 mt-0.5">Verified peak level</div>
+            <div className="text-[11px] text-[#6E625A] mt-0.5">Verified peak level</div>
           </div>
 
-          <div className="p-4 rounded-xl bg-rose-50/70 border border-rose-200">
-            <span className="text-[11px] font-bold text-rose-900 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-[#FBF0EF] border border-[#D4958F]">
+            <span className="text-[11px] font-bold text-[#7A2E2A] uppercase tracking-wider">
               Current Estimated Score
             </span>
-            <div className="text-2xl font-black text-rose-700 font-mono mt-1">
+            <div className="text-2xl font-black text-[#9A4B42] font-mono mt-1">
               {decay.currentEstimatedRetention}%
             </div>
-            <div className="text-[11px] text-rose-600 mt-0.5">
+            <div className="text-[11px] text-[#7A2E2A] mt-0.5">
               4 percentage points below 75% threshold
             </div>
           </div>
 
-          <div className="p-4 rounded-xl bg-slate-50 border border-slate-200">
-            <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-[#F8F3EB] border border-[#DED2C5]">
+            <span className="text-[11px] font-bold text-[#6E625A] uppercase tracking-wider">
               Days Since Last Practice
             </span>
-            <div className="text-2xl font-black text-slate-900 font-mono mt-1">
+            <div className="text-2xl font-black text-[#2F2520] font-mono mt-1">
               {decay.daysSinceLastPractice} days
             </div>
-            <div className="text-[11px] text-slate-500 mt-0.5">No refresher submitted</div>
+            <div className="text-[11px] text-[#6E625A] mt-0.5">No refresher submitted</div>
           </div>
 
-          <div className="p-4 rounded-xl bg-amber-50/70 border border-amber-200">
-            <span className="text-[11px] font-bold text-amber-900 uppercase tracking-wider">
+          <div className="p-4 rounded-xl bg-[#FDF6EC] border border-[#D4A96A]">
+            <span className="text-[11px] font-bold text-[#7A4F1E] uppercase tracking-wider">
               Next Refresh Required
             </span>
-            <div className="text-2xl font-black text-amber-800 font-mono mt-1">
+            <div className="text-2xl font-black text-[#A97838] font-mono mt-1">
               {decay.nextRefreshDays} days
             </div>
-            <div className="text-[11px] text-amber-700 mt-0.5">Recommended interval</div>
+            <div className="text-[11px] text-[#7A4F1E] mt-0.5">Recommended interval</div>
           </div>
         </div>
       </div>
 
-      {/* Section 21: Ebbinghaus Forgetting Curve Chart */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-4 border-b border-slate-100">
+      {/* Ebbinghaus Forgetting Curve Chart */}
+      <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 shadow-xs">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 mb-4 border-b border-[#EEE4D8]">
           <div>
-            <h3 className="text-base font-bold text-slate-900">
-              Retention Trajectory & Prediction Curve
+            <h3 className="text-base font-bold text-[#2F2520]">
+              Retention Trajectory &amp; Prediction Curve
             </h3>
-            <p className="text-xs text-slate-500">
+            <p className="text-xs text-[#6E625A]">
               Calculated via Ebbinghaus retention law:{' '}
-              <code className="text-xs font-mono bg-slate-100 px-1.5 py-0.5 rounded text-blue-900">
+              <code className="text-xs font-mono bg-[#F8F3EB] border border-[#DED2C5] px-1.5 py-0.5 rounded text-[#6B4A35]">
                 R(t) = e^(-t / S)
               </code>
             </p>
           </div>
 
           <div className="flex items-center gap-3 text-xs font-mono">
-            <span className="flex items-center gap-1.5 text-rose-600 font-bold">
-              <span className="w-2.5 h-0.5 bg-rose-600 inline-block"></span>
+            <span className="flex items-center gap-1.5 text-[#9A4B42] font-bold">
+              <span className="w-2.5 h-0.5 bg-[#9A4B42] inline-block"></span>
               75% MoSPI Threshold
             </span>
-            <span className="flex items-center gap-1.5 text-blue-900 font-bold">
-              <span className="w-2.5 h-0.5 bg-blue-900 inline-block"></span>
+            <span className="flex items-center gap-1.5 text-[#6B4A35] font-bold">
+              <span className="w-2.5 h-0.5 bg-[#6B4A35] inline-block"></span>
               Officer Retention Curve
             </span>
           </div>
@@ -242,13 +235,13 @@ export const KnowledgeDecayPage: React.FC<KnowledgeDecayPageProps> = ({
           currentRetention={decay.currentEstimatedRetention}
         />
 
-        {/* Alert Callout when < 75% (Section 21) */}
+        {/* Alert Callout when < 75% */}
         {decay.currentEstimatedRetention < 75 && (
-          <div className="mt-6 p-4 rounded-xl bg-rose-50 border-2 border-rose-300 text-rose-950 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+          <div className="mt-6 p-4 rounded-xl bg-[#FBF0EF] border-2 border-[#D4958F] text-[#7A2E2A] flex flex-col sm:flex-row sm:items-center justify-between gap-3">
             <div className="flex items-center gap-3">
-              <ShieldAlert className="w-6 h-6 text-rose-600 shrink-0" />
+              <ShieldAlert className="w-6 h-6 text-[#9A4B42] shrink-0" />
               <div className="text-xs">
-                <span className="font-bold text-rose-900 block">
+                <span className="font-bold text-[#7A2E2A] block">
                   CRITICAL DECAY ALERT: Retention Dropped Below 75% MoSPI Standard
                 </span>
                 <span>
@@ -259,7 +252,7 @@ export const KnowledgeDecayPage: React.FC<KnowledgeDecayPageProps> = ({
 
             <button
               onClick={handleRefreshKnowledge}
-              className="px-4 py-2 rounded-lg bg-rose-600 hover:bg-rose-700 text-white font-bold text-xs shadow-xs transition-colors shrink-0 cursor-pointer"
+              className="px-4 py-2 rounded-lg bg-[#9A4B42] hover:bg-[#7A2E2A] text-[#FFFDFC] font-bold text-xs shadow-xs transition-colors shrink-0 cursor-pointer"
             >
               Take 5-min Refresher Now
             </button>
@@ -268,8 +261,8 @@ export const KnowledgeDecayPage: React.FC<KnowledgeDecayPageProps> = ({
       </div>
 
       {/* Cross-System Decay Matrix */}
-      <div className="bg-white rounded-2xl border border-slate-200 p-6 shadow-xs">
-        <h3 className="text-base font-bold text-slate-900 mb-4 pb-3 border-b border-slate-100">
+      <div className="bg-[#FFFDFC] rounded-2xl border border-[#DED2C5] p-6 shadow-xs">
+        <h3 className="text-base font-bold text-[#2F2520] mb-4 pb-3 border-b border-[#EEE4D8]">
           Decay Status Across Statistical Systems
         </h3>
 
@@ -280,46 +273,46 @@ export const KnowledgeDecayPage: React.FC<KnowledgeDecayPageProps> = ({
               onClick={() => setSelectedCompetencyId(c.id)}
               className={`p-4 rounded-xl border transition-all cursor-pointer ${
                 c.id === selectedCompetencyId
-                  ? 'bg-blue-50/50 border-blue-600 shadow-xs ring-1 ring-blue-600/30'
-                  : 'bg-white hover:bg-slate-50 border-slate-200'
+                  ? 'bg-[#EEE4D8] border-[#6B4A35] shadow-xs ring-1 ring-[#6B4A35]/30'
+                  : 'bg-[#FFFDFC] hover:bg-[#F8F3EB] border-[#DED2C5]'
               }`}
             >
               <div className="flex items-center justify-between mb-1">
-                <span className="text-[10px] font-mono font-bold uppercase text-slate-400">
+                <span className="text-[10px] font-mono font-bold uppercase text-[#93877D]">
                   {c.category}
                 </span>
                 <span
-                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full ${
+                  className={`text-[10px] font-bold px-2 py-0.5 rounded-full border ${
                     c.decay.status === 'Retained'
-                      ? 'bg-emerald-50 text-emerald-800'
-                      : 'bg-rose-50 text-rose-800'
+                      ? 'bg-[#EFF6EF] text-[#2E5B34] border-[#A8C9AC]'
+                      : 'bg-[#FBF0EF] text-[#7A2E2A] border-[#D4958F]'
                   }`}
                 >
                   {c.decay.status}
                 </span>
               </div>
 
-              <h4 className="text-xs font-bold text-slate-900">{c.name}</h4>
+              <h4 className="text-xs font-bold text-[#2F2520]">{c.name}</h4>
 
               <div className="flex items-baseline justify-between mt-3 text-xs">
-                <span className="text-slate-500">Estimated Retention:</span>
-                <span className="font-mono font-bold text-slate-900">
+                <span className="text-[#6E625A]">Estimated Retention:</span>
+                <span className="font-mono font-bold text-[#2F2520]">
                   {c.decay.currentEstimatedRetention}%
                 </span>
               </div>
 
-              <div className="w-full bg-slate-100 h-1.5 rounded-full mt-1.5 overflow-hidden">
+              <div className="w-full bg-[#EEE4D8] h-1.5 rounded-full mt-1.5 overflow-hidden">
                 <div
                   className={`h-full rounded-full ${
-                    c.decay.currentEstimatedRetention >= 75 ? 'bg-emerald-500' : 'bg-rose-500'
+                    c.decay.currentEstimatedRetention >= 75 ? 'bg-[#547A5A]' : 'bg-[#9A4B42]'
                   }`}
                   style={{ width: `${c.decay.currentEstimatedRetention}%` }}
                 />
               </div>
 
-              <div className="flex items-center justify-between text-[10px] text-slate-400 mt-2">
+              <div className="flex items-center justify-between text-[10px] text-[#6E625A] mt-2">
                 <span>{c.decay.daysSinceLastPractice} days since practice</span>
-                <span className="text-blue-600 font-medium">Inspect &rarr;</span>
+                <span className="text-[#6B4A35] font-medium">Inspect &rarr;</span>
               </div>
             </div>
           ))}
